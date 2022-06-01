@@ -19,12 +19,15 @@ commands:
     group-create:
       usage: "/perms group create <id>"
       permission: "perms.group.create"
+      exec: "/perms group create %s"
     group-delete:
       usage: "/perms group delete <id>"
       permission: "perms.group.delete"
+      exec: "/perms group delete %s"
     group-clear:
       usage: "/perms group clear <id>"
       permission: "perms.group.clear"
+      exec: "/perms group clear %s"
     group-grant:
       usage: "/perms group grant <id> <permission> [world]"
       permission: "perms.group.grant"

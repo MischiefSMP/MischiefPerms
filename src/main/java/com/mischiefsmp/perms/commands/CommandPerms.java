@@ -17,7 +17,6 @@ public class CommandPerms implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-
         if(args.length <= 0 && isAllowed(sender, ReadOnly.getCMDPerm("perms.help"))) {
             sender.sendMessage(LangManager.getString(sender, "missing-arguments"));
             sender.sendMessage(LangManager.getString(sender, "try-cmd", ReadOnly.getCMDUsage("perms.help")));

@@ -33,8 +33,12 @@ public class ReadOnly {
     }
 
     //Example: getCMDPerm("perms.group-create");
+    //This returns the usage if no exec is set
     public static String getCMDExec(String cmdKey) {
-        return CMD_INFO.getString(String.format("commands.%s.exec", cmdKey));
+        String path = String.format("commands.%s.exec", cmdKey);
+        if(CMD_INFO.contains(path))
+            return CMD_INFO.getString(path);
+        return getCMDUsage(cmdKey);
     }
 
     //Example: getCMDHelp(sender, "perms");
