@@ -1,15 +1,10 @@
 package com.mischiefsmp.perms.features;
 
+import com.mischiefsmp.perms.FileUtils;
 import com.mischiefsmp.perms.MischiefPerms;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
-import java.util.logging.Level;
 
 public class LangManager {
     private static MischiefPerms plugin;
@@ -18,18 +13,7 @@ public class LangManager {
     public static void init(MischiefPerms plugin) {
         LangManager.plugin = plugin;
         for(String lang : PluginConfig.getLanguages()) {
-            String location = String.format("lang/%s.yml", lang);
-            File intendedPath = new File(plugin.getDataFolder(), location);
-            if(!intendedPath.exists())
-                plugin.saveResource(location, false);
-            YamlConfiguration cfg = new YamlConfiguration();
-            try {
-                cfg.load(intendedPath);
-            } catch (IOException | InvalidConfigurationException exception) {
-                MischiefPerms.log("Error loading language file <%s>!", Level.SEVERE, lang);
-                exception.printStackTrace();
-            }
-            langMaps.put(lang, cfg);
+            langMaps.put(lang, FileUtils.loadConfig(String.format("lang/%s.yml", lang)));
         }
     }
 

@@ -3,3 +3,4 @@ messages:
   wrong-usage: "Wrong usage!"
   missing-arguments: "Missing arguments!"
   try-cmd: "Try running %s!"
+  available-cmds: "Available commands:"

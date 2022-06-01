@@ -4,6 +4,7 @@ import com.mischiefsmp.perms.commands.CommandPerms;
 import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.features.PermissionManager;
 import com.mischiefsmp.perms.features.PluginConfig;
+import com.mischiefsmp.perms.features.ReadOnly;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -18,6 +19,8 @@ public class MischiefPerms extends JavaPlugin {
     @Override
     public void onEnable() {
         logger = getLogger();
+        FileUtils.init(this);
+        ReadOnly.init(this);
         PluginConfig.init(this);
         LangManager.init(this);
         PermissionManager.init(this);
