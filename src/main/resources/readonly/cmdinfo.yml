@@ -7,11 +7,14 @@ commands:
       usage: "/perms help"
       permission: "perms.help"
     list-group:
-      usage: "/perms list group [id]"
-      permission: "perms.list.group"
+      usage: "/perms list groups"
+      permission: "perms.list.groups"
     list-user:
-      usage: "/perms list user [username]"
-      permission: "perms.list.user"
+      usage: "/perms list users"
+      permission: "perms.list.users"
+    group:
+      usage: "/perms group <id>"
+      permission: "perms.group.info"
     group-create:
       usage: "/perms group create <id>"
       permission: "perms.group.create"
@@ -39,6 +42,9 @@ commands:
     group-index:
       usage: "/perms group index <up|down>"
       permission: "perms.group.index"
+    user:
+      usage: "/perms user <username>"
+      permission: "perms.user.info"
     user-clear:
       usage: "/perms user clear <username>"
       permission: "perms.user.clear"
