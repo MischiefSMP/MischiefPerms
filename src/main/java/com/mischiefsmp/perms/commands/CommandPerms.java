@@ -11,10 +11,6 @@ import org.jetbrains.annotations.NotNull;
 public class CommandPerms implements CommandExecutor {
     private final MischiefPerms plugin;
 
-    private final String[] CMD_LIST = {"help", "group.create", "group.delete", "group.clear", "group.grant",
-            "group.deny", "group.remove", "group.remove", "group.prefix", "group.suffix", "user.clear",
-            "user.grant", "user.deny", "user.remove", "user.remove", "user.prefix", "user.suffix"};
-
     public CommandPerms(MischiefPerms plugin) {
         this.plugin = plugin;
     }
@@ -50,11 +46,8 @@ public class CommandPerms implements CommandExecutor {
 
     private void sendHelp(CommandSender sender) {
         sender.sendMessage(LangManager.getString(sender, "available-cmds"));
-
-        for(String item : CMD_LIST) {
-            String itemKey = String.format("perms.%s", item);
-            if(sender.hasPermission(ReadOnly.getCMDPerm(itemKey)))
-                sender.sendMessage(ReadOnly.getCMDUsage(itemKey));
+        for(String cmd : ReadOnly.getCMDHelp(sender, "perms")) {
+            sender.sendMessage(cmd);
         }
     }
 }

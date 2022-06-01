@@ -6,47 +6,54 @@ commands:
     help:
       usage: "/perms help"
       permission: "perms.help"
-    group:
-      create:
-        usage: "/perms group create <id>"
-        permission: "perms.group.create"
-      delete:
-        usage: "/perms group delete <id>"
-        permission: "perms.group.delete"
-      clear:
-        usage: "/perms group clear <id>"
-        permission: "perms.group.clear"
-      grant:
-        usage: "/perms group grant <id> <permission> [world]"
-        permission: "perms.group.grant"
-      deny:
-        usage: "/perms group deny <id> <permission> [world]"
-        permission: "perms.group.deny"
-      remove:
-        usage: "/perms group remove <id> <permission> [world]"
-        permission: "perms.group.remove"
-      prefix:
-        usage: "/perms group prefix <id> <prefix>"
-        permission: "perms.group.prefix"
-      suffix:
-        usage: "/perms group suffix <id> <suffix>"
-        permission: "perms.group.suffix"
-    user:
-      clear:
-        usage: "/perms user clear <username>"
-        permission: "perms.user.clear"
-      grant:
-        usage: "/perms user grant <username> <permission> [world]"
-        permission: "perms.user.grant"
-      deny:
-        usage: "/perms user deny <username> <permission> [world]"
-        permission: "perms.user.deny"
-      remove:
-        usage: "/perms user remove <username> <permission> [world]"
-        permission: "perms.user.remove"
-      prefix:
-        usage: "/perms user prefix <username> <prefix>"
-        permission: "perms.user.prefix"
-      suffix:
-        usage: "/perms user suffix <username> <suffix>"
-        permission: "perms.user.suffix"
+    list-group:
+      usage: "/perms list group [id]"
+      permission: "perms.list.group"
+    list-user:
+      usage: "/perms list user [username]"
+      permission: "perms.list.user"
+    group-create:
+      usage: "/perms group create <id>"
+      permission: "perms.group.create"
+    group-delete:
+      usage: "/perms group delete <id>"
+      permission: "perms.group.delete"
+    group-clear:
+      usage: "/perms group clear <id>"
+      permission: "perms.group.clear"
+    group-grant:
+      usage: "/perms group grant <id> <permission> [world]"
+      permission: "perms.group.grant"
+    group-deny:
+      usage: "/perms group deny <id> <permission> [world]"
+      permission: "perms.group.deny"
+    group-remove:
+      usage: "/perms group remove <id> <permission> [world]"
+      permission: "perms.group.remove"
+    group-prefix:
+      usage: "/perms group prefix <id> <prefix>"
+      permission: "perms.group.prefix"
+    group-suffix:
+      usage: "/perms group suffix <id> <suffix>"
+      permission: "perms.group.suffix"
+    group-index:
+      usage: "/perms group index <up|down>"
+      permission: "perms.group.index"
+    user-clear:
+      usage: "/perms user clear <username>"
+      permission: "perms.user.clear"
+    user-grant:
+      usage: "/perms user grant <username> <permission> [world]"
+      permission: "perms.user.grant"
+    user-deny:
+      usage: "/perms user deny <username> <permission> [world]"
+      permission: "perms.user.deny"
+    user-remove:
+      usage: "/perms user remove <username> <permission> [world]"
+      permission: "perms.user.remove"
+    user-prefix:
+      usage: "/perms user prefix <username> <prefix>"
+      permission: "perms.user.prefix"
+    user-suffix:
+      usage: "/perms user suffix <username> <suffix>"
+      permission: "perms.user.suffix"

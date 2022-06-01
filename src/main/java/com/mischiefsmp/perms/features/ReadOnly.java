@@ -2,9 +2,12 @@ package com.mischiefsmp.perms.features;
 
 import com.mischiefsmp.perms.FileUtils;
 import com.mischiefsmp.perms.MischiefPerms;
+import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class ReadOnly {
     private static FileConfiguration CMD_INFO;
@@ -27,5 +30,23 @@ public class ReadOnly {
     //Example: getCMDPerm("group.create");
     public static String getCMDPerm(String cmdKey) {
         return CMD_INFO.getString(String.format("commands.%s.permission", cmdKey));
+    }
+
+    //Example: getCMDHelp(sender, "perms");
+    public static ArrayList<String> getCMDHelp(CommandSender sender, String cmdKey) {
+        ArrayList<String> result = new ArrayList<>();
+        ConfigurationSection section = CMD_INFO.getConfigurationSection(String.format("commands.%s", cmdKey));
+        if(section == null)
+            return result;
+
+        for(String key : section.getKeys(false)) {
+            String permission = CMD_INFO.getString(String.format("commands.%s.%s.permission", cmdKey, key));
+            if(permission != null && sender.hasPermission(permission)) {
+                String usage = CMD_INFO.getString(String.format("commands.%s.%s.usage", cmdKey, key));
+                result.add(usage);
+            }
+        }
+
+        return result;
     }
 }
