@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group 'com.mischiefsmp'
+
+repositories {
+    mavenCentral()
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+    maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
+    maven { url = 'https://oss.sonatype.org/content/repositories/central' }
+    maven { url = 'https://jitpack.io' }
+
+    mavenLocal()
+}
+
+dependencies {
+    implementation 'org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT'
+    implementation 'org.jetbrains:annotations:20.1.0'
+}
+

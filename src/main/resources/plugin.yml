@@ -1,0 +1,10 @@
+name: MischiefPerms
+version: 0.0.1
+author: sven@wollinger.email
+main: com.mischiefsmp.perms.MischiefPerms
+api-version: 1.18
+commands:
+  perms:
+    description: Set permission related settings
+    usage: /<command>
+    aliases: permissions
