@@ -33,10 +33,10 @@ public class MischiefPerms extends JavaPlugin {
         MischiefPerms.log("Error registering command <%s>!", Level.SEVERE, label);
     }
 
-    public static void log(String message, Level level, Object... args) {
-        String msg = message;
+    public static void log(Object message, Level level, Object... args) {
+        String msg = message.toString();
         if(args.length > 0)
-            msg = String.format(message, args);
+            msg = String.format(message.toString(), args);
         logger.log(level, msg);
     }
 
