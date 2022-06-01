@@ -15,6 +15,7 @@ commands:
     group:
       usage: "/perms group <id>"
       permission: "perms.group.info"
+      exec: "/perms group %s"
     group-create:
       usage: "/perms group create <id>"
       permission: "perms.group.create"

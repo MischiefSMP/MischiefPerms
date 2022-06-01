@@ -22,14 +22,19 @@ public class ReadOnly {
         new File(df, "readonly").delete();
     }
 
-    //Example: getCMDUsage("group.create");
+    //Example: getCMDUsage("perms.group-create");
     public static String getCMDUsage(String cmdKey) {
         return CMD_INFO.getString(String.format("commands.%s.usage", cmdKey));
     }
 
-    //Example: getCMDPerm("group.create");
+    //Example: getCMDPerm("perms.group-create");
     public static String getCMDPerm(String cmdKey) {
         return CMD_INFO.getString(String.format("commands.%s.permission", cmdKey));
+    }
+
+    //Example: getCMDPerm("perms.group-create");
+    public static String getCMDExec(String cmdKey) {
+        return CMD_INFO.getString(String.format("commands.%s.exec", cmdKey));
     }
 
     //Example: getCMDHelp(sender, "perms");
