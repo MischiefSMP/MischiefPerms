@@ -30,6 +30,6 @@ public class LangManager {
         String msg = langMaps.get(language).getString(String.format("messages.%s", key));
         if(args.length > 0 && msg != null)
             msg = String.format(msg, args);
-        return String.format("[%s] %s", plugin.getName(), msg);
+        return msg;
     }
 }

@@ -11,6 +11,10 @@ import org.jetbrains.annotations.NotNull;
 public class CommandPerms implements CommandExecutor {
     private final MischiefPerms plugin;
 
+    private final String[] CMD_LIST = {"help", "group.create", "group.delete", "group.clear", "group.grant",
+            "group.deny", "group.remove", "group.remove", "group.prefix", "group.suffix", "user.clear",
+            "user.grant", "user.deny", "user.remove", "user.remove", "user.prefix", "user.suffix"};
+
     public CommandPerms(MischiefPerms plugin) {
         this.plugin = plugin;
     }
@@ -18,13 +22,13 @@ public class CommandPerms implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
-        if(args.length <= 0 && isAllowed(sender, ReadOnly.getCMDPerm("help"))) {
+        if(args.length <= 0 && isAllowed(sender, ReadOnly.getCMDPerm("perms.help"))) {
             sender.sendMessage(LangManager.getString(sender, "missing-arguments"));
-            sender.sendMessage(LangManager.getString(sender, "try-cmd", ReadOnly.getCMDUsage("help")));
+            sender.sendMessage(LangManager.getString(sender, "try-cmd", ReadOnly.getCMDUsage("perms.help")));
             return true;
         }
 
-        if(args[0].equals("help") && isAllowed(sender, ReadOnly.getCMDPerm("help"))) {
+        if(args[0].equals("help") && isAllowed(sender, ReadOnly.getCMDPerm("perms.help"))) {
             sendHelp(sender);
             return true;
         } else if(args[0].equals("group")) {
@@ -38,7 +42,7 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private boolean isAllowed(CommandSender sender, String permission) {
-        boolean should = sender.isOp() || sender.hasPermission(permission) || sender.hasPermission("*");;
+        boolean should = sender.isOp() || sender.hasPermission(permission) || sender.hasPermission("*");
         if(!should)
             sender.sendMessage(LangManager.getString(sender, "noperm"));
         return should;
@@ -47,5 +51,10 @@ public class CommandPerms implements CommandExecutor {
     private void sendHelp(CommandSender sender) {
         sender.sendMessage(LangManager.getString(sender, "available-cmds"));
 
+        for(String item : CMD_LIST) {
+            String itemKey = String.format("perms.%s", item);
+            if(sender.hasPermission(ReadOnly.getCMDPerm(itemKey)))
+                sender.sendMessage(ReadOnly.getCMDUsage(itemKey));
+        }
     }
 }
