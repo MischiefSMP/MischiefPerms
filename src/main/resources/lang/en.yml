@@ -1,2 +1,5 @@
 messages:
   noperm: "You are not allowed to run this command!"
+  wrong-usage: "Wrong usage!"
+  missing-arguments: "Missing arguments!"
+  try-cmd: "Try running %s!"

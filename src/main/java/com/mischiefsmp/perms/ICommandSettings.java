@@ -1,6 +1,9 @@
 package com.mischiefsmp.perms;
 
 public interface ICommandSettings {
+    String HELP_USAGE = "/perms help";
+    String HELP_PERMS = "perms.help";
+
     String GROUP_CREATE_USAGE = "/perms group create <id>";
     String GROUP_CREATE_PERMS = "perms.group.create";
 
