@@ -5,6 +5,8 @@ messages:
   try-cmd: "Try running %s!"
   available-cmds: "Available commands:"
   world-nf: "World %s could not be found!"
+  all-groups: "All groups:"
+  all-users: "All users:"
   group-nf: "Group %s not found!"
   group-exists: "Group %s already exists!"
   group-created: "Group %s created!"

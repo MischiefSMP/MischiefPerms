@@ -91,6 +91,10 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private boolean ensureWorldExists(CommandSender sender, String world) {
+        //If world is null we are not trying to set a world
+        if(world == null)
+            return true;
+
         if(Bukkit.getWorld(world) == null) {
             sender.sendMessage(LangManager.getString(sender, "world-nf", world));
             return false;
@@ -105,12 +109,26 @@ public class CommandPerms implements CommandExecutor {
         return should;
     }
 
+    private TextComponent getGroupInfoTextComponent(CommandSender sender, String groupID) {
+        TextComponent infoText = new TextComponent("[I]");
+        infoText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-group-info"))));
+        String infoCMD = String.format(ReadOnly.getCMDExec("perms.group"), groupID);
+        infoText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, infoCMD));
+        return infoText;
+    }
+
     private void listUsers(CommandSender sender) {
         sender.sendMessage("All users:");
     }
 
     private void listGroups(CommandSender sender) {
-        sender.sendMessage("All groups:");
+        sender.sendMessage(LangManager.getString(sender, "all-groups"));
+        for(MischiefGroup group : PermissionManager.getGroups()) {
+            //TODO: Account for index
+            TextComponent groupText = new TextComponent(group.getId());
+            TextComponent infoText = getGroupInfoTextComponent(sender, group.getId());
+            sender.spigot().sendMessage(new ComponentBuilder(groupText).append(" ").append(infoText).create());
+        }
     }
 
     private void infoGroup(CommandSender sender, String id) {
@@ -131,7 +149,14 @@ public class CommandPerms implements CommandExecutor {
         sender.sendMessage(String.format("Prefix: %s", g.getPrefix()));
         sender.sendMessage(String.format("Suffix: %s", g.getSuffix()));
         sender.sendMessage(String.format("Users: %s", g.getMembers()));
-        sender.sendMessage("Permissions:");
+        TextComponent permissionsText = new TextComponent("Permissions: ");
+        TextComponent addPermText = new TextComponent("[+]");
+        //TODO: Translate
+        addPermText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to add new permission")));
+        addPermText.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format(ReadOnly.getCMDSuggestion("perms.group-add"), g.getId())));
+
+        sender.spigot().sendMessage(new ComponentBuilder(permissionsText).append(addPermText).create());
+
         for(MischiefPermission p : g.getPermissions()) {
             String worldStr = p.getWorld() == null ? "" : String.format(" (%S)", p.getWorld());
             TextComponent permissionText = new TextComponent(String.format("> %s", p + worldStr));
@@ -227,15 +252,7 @@ public class CommandPerms implements CommandExecutor {
 
         TextComponent successText = new TextComponent(LangManager.getString(sender, "group-perm-added", permission, id));
 
-        sender.spigot().sendMessage(new ComponentBuilder(successText).append(" ").append(getInfoTextComponent(sender, id)).create());
-    }
-
-    private TextComponent getInfoTextComponent(CommandSender sender, String groupID) {
-        TextComponent infoText = new TextComponent("[I]");
-        infoText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-group-info"))));
-        String infoCMD = String.format(ReadOnly.getCMDExec("perms.group"), groupID);
-        infoText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, infoCMD));
-        return infoText;
+        sender.spigot().sendMessage(new ComponentBuilder(successText).append(" ").append(getGroupInfoTextComponent(sender, id)).create());
     }
 
     private void removeGroup(CommandSender sender, String id, String permission, String world) {

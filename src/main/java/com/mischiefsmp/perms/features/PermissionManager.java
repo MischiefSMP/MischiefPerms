@@ -4,6 +4,7 @@ import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.permission.MischiefUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -23,6 +24,13 @@ public class PermissionManager {
 
     public static MischiefGroup getGroup(String id) {
         return groups.get(id);
+    }
+
+    public static ArrayList<MischiefGroup> getGroups() {
+        ArrayList<MischiefGroup> list = new ArrayList<>();
+        for(String gKey : groups.keySet())
+            list.add(groups.get(gKey));
+        return list;
     }
 
     public static void createGroup(String id) {
