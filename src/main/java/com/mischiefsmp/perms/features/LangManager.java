@@ -3,6 +3,7 @@ package com.mischiefsmp.perms.features;
 import com.mischiefsmp.perms.utils.FileUtils;
 import com.mischiefsmp.perms.MischiefPerms;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import java.util.HashMap;
 
@@ -18,8 +19,13 @@ public class LangManager {
     }
 
     public static String getString(CommandSender sender, String key, Object... args) {
-        //TODO: Run checks to see if we got per-user language
-        return getString(key, args);
+        String language = PluginConfig.getDefaultLanguage();
+        if(sender instanceof ConsoleCommandSender) {
+            language = PluginConfig.getConsoleLanguage();
+        }
+        //TODO: Add per user language
+
+        return getString(language, key, args);
     }
 
     public static String getString(String key, Object... args) {

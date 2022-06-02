@@ -19,6 +19,10 @@ public class PluginConfig {
         return config.getString("language");
     }
 
+    public static String getConsoleLanguage() {
+        return config.getString("console-language");
+    }
+
     public static List<String> getLanguages() {
         return config.getStringList("languages");
     }
