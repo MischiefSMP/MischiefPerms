@@ -32,6 +32,7 @@ public class MischiefUser {
         for(String groupID : groups) {
             MischiefGroup g = PermissionManager.getGroup(groupID);
             if(g != null) {
+                //TODO: Check this in the same shorter way we check it for the user (- checking)
                 MischiefPermission ignoreAllowed = g.getPermission(permission.toString(), true);
                 if(!ignoreAllowed.isAllowed()) {
                     canRun = false;
@@ -45,6 +46,7 @@ public class MischiefUser {
             }
         }
 
+        //TODO: Check user permissions first, since they are more important
         //Check user permission
         for(String pKey : permissions.keySet()) {
             MischiefPermission p = permissions.get(pKey);
