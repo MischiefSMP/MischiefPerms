@@ -58,12 +58,14 @@ public class ReadOnly {
             return result;
 
         for(String key : section.getKeys(false)) {
-            String permission = CMD_INFO.getString(String.format("commands.%s.%s.permission", cmdKey, key));
+            String path = String.format("%s.%s", cmdKey, key);
+            String permission = getCMDPerm(path);
             if(permission != null && sender.hasPermission(permission)) {
-                String usage = CMD_INFO.getString(String.format("commands.%s.%s.usage", cmdKey, key));
-                String exec = CMD_INFO.getString(String.format("commands.%s.%s.exec", cmdKey, key));
-                String desc = LangManager.getString(sender, String.format("cmd-desc.%s.%s", cmdKey, key));
-                result.add(new CmdInfo(usage, permission, exec, desc));
+                String usage = getCMDUsage(path);
+                String exec = getCMDExec(path);
+                String desc = LangManager.getString(sender, String.format("cmd-desc.%s", path));
+                String suggestion = getCMDSuggestion(path);
+                result.add(new CmdInfo(usage, permission, exec, desc, suggestion));
             }
         }
 
