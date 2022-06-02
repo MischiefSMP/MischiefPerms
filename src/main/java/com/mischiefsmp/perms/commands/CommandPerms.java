@@ -113,11 +113,12 @@ public class CommandPerms implements CommandExecutor {
         }
 
         if(PermissionManager.hasGroup(id)) {
-            sender.sendMessage("A group with that id already exists!");
+            sender.sendMessage(LangManager.getString(sender, "group-exists", id));
             return;
         }
 
         PermissionManager.createGroup(id);
+        sender.sendMessage(LangManager.getString(sender, "group-created", id));
     }
 
     private void deleteGroup(CommandSender sender, String id) {
@@ -127,11 +128,12 @@ public class CommandPerms implements CommandExecutor {
         }
 
         if(!PermissionManager.hasGroup(id)) {
-            sender.sendMessage("Group not found!");
+            sender.sendMessage(LangManager.getString(sender, "group-nf", id));
             return;
         }
 
         PermissionManager.deleteGroup(id);
+        sender.sendMessage(LangManager.getString(sender, "group-removed", id));
     }
 
     private void clearGroup(CommandSender sender, String id) {

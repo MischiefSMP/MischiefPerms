@@ -4,6 +4,12 @@ messages:
   missing-arguments: "Missing arguments!"
   try-cmd: "Try running %s!"
   available-cmds: "Available commands:"
+  group-nf: "Group %s not found!"
+  group-exists: "Group %s already exists!"
+  group-created: "Group %s created!"
+  group-removed: "Group %s removed!"
+  group-perm-added: "Added %s to %s!"
+  group-perm-removed: "Removed %s from %s!"
   cmd-desc:
     perms:
       help: "Shows all usages"
