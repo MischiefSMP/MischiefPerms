@@ -25,7 +25,7 @@ public class MischiefPerms extends JavaPlugin {
         PluginConfig.init(this);
         LangManager.init(this);
         PermissionManager.init(this);
-        registerCommand("perms", new CommandPerms(this));
+        registerCommand("perms", new CommandPerms());
     }
 
     private void registerCommand(String label, CommandExecutor executor) {

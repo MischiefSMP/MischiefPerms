@@ -1,7 +1,6 @@
 package com.mischiefsmp.perms.commands.perms;
 
 import com.mischiefsmp.perms.features.ReadOnly;
-import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.features.LangManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,11 +9,6 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandPerms implements CommandExecutor {
-    private final MischiefPerms plugin;
-
-    public CommandPerms(MischiefPerms plugin) {
-        this.plugin = plugin;
-    }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
@@ -70,7 +64,7 @@ public class CommandPerms implements CommandExecutor {
             }
 
         } else if(args[0].equals("user")) {
-
+            
         }
 
         return true;
