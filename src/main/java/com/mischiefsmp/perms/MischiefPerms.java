@@ -1,6 +1,6 @@
 package com.mischiefsmp.perms;
 
-import com.mischiefsmp.perms.commands.CommandPerms;
+import com.mischiefsmp.perms.commands.perms.CommandPerms;
 import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.features.PermissionManager;
 import com.mischiefsmp.perms.features.PluginConfig;
