@@ -28,12 +28,9 @@ commands:
       usage: "/perms group clear <id>"
       permission: "perms.group.clear"
       exec: "/perms group clear %s"
-    group-grant:
-      usage: "/perms group grant <id> <permission> [world]"
-      permission: "perms.group.grant"
-    group-deny:
-      usage: "/perms group deny <id> <permission> [world]"
-      permission: "perms.group.deny"
+    group-add:
+      usage: "/perms group add <id> <permission> [world]"
+      permission: "perms.group.add"
     group-remove:
       usage: "/perms group remove <id> <permission> [world]"
       permission: "perms.group.remove"
@@ -52,12 +49,9 @@ commands:
     user-clear:
       usage: "/perms user clear <username>"
       permission: "perms.user.clear"
-    user-grant:
-      usage: "/perms user grant <username> <permission> [world]"
-      permission: "perms.user.grant"
-    user-deny:
-      usage: "/perms user deny <username> <permission> [world]"
-      permission: "perms.user.deny"
+    user-add:
+      usage: "/perms user add <username> <permission> [world]"
+      permission: "perms.user.add"
     user-remove:
       usage: "/perms user remove <username> <permission> [world]"
       permission: "perms.user.remove"

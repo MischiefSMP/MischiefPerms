@@ -65,8 +65,7 @@ public class CommandPerms implements CommandExecutor {
                 case "create" -> createGroup(sender, two);
                 case "delete" -> deleteGroup(sender, two);
                 case "clear" -> clearGroup(sender, two);
-                case "grant" -> grantGroup(sender, two, three, four);
-                case "deny" -> denyGroup(sender, two, three, four);
+                case "add" -> addGroup(sender, two, three, four);
                 case "remove" -> removeGroup(sender, two, three, four);
                 case "prefix" -> prefixGroup(sender, two, three);
                 case "suffix" -> suffixGroup(sender, two, three);
@@ -139,7 +138,7 @@ public class CommandPerms implements CommandExecutor {
         sender.sendMessage(String.format("CLEAR ID: %s", id));
     }
 
-    private void grantGroup(CommandSender sender, String id, String permission, String world) {
+    private void addGroup(CommandSender sender, String id, String permission, String world) {
         if(id == null || permission == null) {
             sendWU(sender);
             return;
@@ -155,10 +154,6 @@ public class CommandPerms implements CommandExecutor {
         //Check if we already have this permission at all
         MischiefPermission perm = group.getPermission(permission, true);
 
-    }
-
-    private void denyGroup(CommandSender sender, String id, String permission, String world) {
-        sender.sendMessage(String.format("DENY ID: %s PERM: %s, WORLD: %s", id, permission, world));
     }
 
     private void removeGroup(CommandSender sender, String id, String permission, String world) {
