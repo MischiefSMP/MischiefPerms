@@ -2,6 +2,7 @@ package com.mischiefsmp.perms.permission;
 
 public class MischiefPermission {
     private final MischiefPermissionPart[] parts;
+    private String world = null;
     private boolean isAllowed = true;
     //TODO: Save world this applies in, if set
     private final static MischiefPermissionPart WILDCARD_PART = new MischiefPermissionPart("*");
@@ -86,5 +87,13 @@ public class MischiefPermission {
 
     public boolean isAllowed() {
         return isAllowed;
+    }
+
+    public String getWorld() {
+        return world;
+    }
+
+    public void setWorld(String world) {
+        this.world = world;
     }
 }

@@ -51,7 +51,12 @@ public class MischiefGroup {
     }
 
     public void addPermission(String permission) {
+        addPermission(permission, null);
+    }
+
+    public void addPermission(String permission, String world) {
         MischiefPermission newPermission = new MischiefPermission(permission);
+        newPermission.setWorld(world);
         permissions.put(newPermission.toString(), newPermission);
     }
 

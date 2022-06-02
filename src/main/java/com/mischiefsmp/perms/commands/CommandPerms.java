@@ -12,8 +12,7 @@ import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.util.StringUtil;
-import org.checkerframework.checker.units.qual.C;
+
 import org.jetbrains.annotations.NotNull;
 
 public class CommandPerms implements CommandExecutor {
@@ -126,10 +125,10 @@ public class CommandPerms implements CommandExecutor {
         sender.sendMessage(String.format("Users: %s", g.getMembers()));
         sender.sendMessage("Permissions:");
         for(MischiefPermission p : g.getPermissions()) {
-            TextComponent permissionText = new TextComponent(String.format("- %s", p.toString()));
+            String worldStr = p.getWorld() == null ? "" : String.format(" (%S)", p.getWorld());
+            TextComponent permissionText = new TextComponent(String.format("> %s", p + worldStr));
 
-            //TODO: Can we somehow show the info screen after we click on something in a pretty way?
-            TextComponent invertText = new TextComponent("[I]");
+            TextComponent invertText = new TextComponent(p.isAllowed() ? "[-]" : "[+]");
             String hoverText = p.isAllowed() ? "click-to-disallow" : "click-to-allow";
             invertText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, hoverText))));
             MischiefPermission invertedPermission = new MischiefPermission(p);
@@ -199,7 +198,6 @@ public class CommandPerms implements CommandExecutor {
             sendWU(sender);
             return;
         }
-        //TODO: Implement per-world permissions
 
         if(!PermissionManager.hasGroup(id)) {
             sender.sendMessage(LangManager.getString(sender, "group-nf", id));
@@ -209,19 +207,24 @@ public class CommandPerms implements CommandExecutor {
         //Check if we already have this permission already (maybe not allowed?)
         MischiefGroup group = PermissionManager.getGroup(id);
         MischiefPermission perm = group.getPermission(permission, true);
-        if(perm != null)
+        if(perm != null) {
             perm.setAllowed(new MischiefPermission(permission).isAllowed());
-        else
-            group.addPermission(permission);
+            if(world != null)
+                perm.setWorld(world);
+        } else
+            group.addPermission(permission, world);
 
         TextComponent successText = new TextComponent(LangManager.getString(sender, "group-perm-added", permission, id));
+
+        sender.spigot().sendMessage(new ComponentBuilder(successText).append(" ").append(getInfoTextComponent(sender, id)).create());
+    }
+
+    private TextComponent getInfoTextComponent(CommandSender sender, String groupID) {
         TextComponent infoText = new TextComponent("[I]");
         infoText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-group-info"))));
-        String infoCMD = String.format(ReadOnly.getCMDExec("perms.group"), id);
+        String infoCMD = String.format(ReadOnly.getCMDExec("perms.group"), groupID);
         infoText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, infoCMD));
-
-        BaseComponent[] components = new ComponentBuilder(successText).append(" ").append(infoText).create();
-        sender.spigot().sendMessage(components);
+        return infoText;
     }
 
     private void removeGroup(CommandSender sender, String id, String permission, String world) {
