@@ -1,5 +1,6 @@
 package com.mischiefsmp.perms.commands;
 
+import com.mischiefsmp.perms.features.PermissionManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.features.LangManager;
@@ -105,7 +106,17 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private void createGroup(CommandSender sender, String id) {
-        sender.sendMessage(String.format("CREATE ID: %s", id));
+        if(id == null) {
+            sendWU(sender);
+            return;
+        }
+
+        if(PermissionManager.hasGroup(id)) {
+            sender.sendMessage("A group with that id already exists!");
+            return;
+        }
+
+        PermissionManager.createGroup(id);
     }
 
     private void deleteGroup(CommandSender sender, String id) {

@@ -1,11 +1,13 @@
 package com.mischiefsmp.perms.permission;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class MischiefGroup {
     private String id;
     private int index;
     private ArrayList<MischiefPermission> permissions;
+    private ArrayList<UUID> members = new ArrayList<UUID>();
     private String prefix;
     private String suffix;
 
@@ -47,5 +49,13 @@ public class MischiefGroup {
 
     public void setSuffix(String suffix) {
         this.suffix = suffix;
+    }
+
+    public ArrayList<UUID> getMembers() {
+        return members;
+    }
+
+    public void setMembers(ArrayList<UUID> members) {
+        this.members = members;
     }
 }

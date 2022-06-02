@@ -11,7 +11,6 @@ import java.util.logging.Level;
 public class MischiefUser {
     private UUID uuid;
     private HashMap<String, MischiefPermission> permissions = new HashMap<>();
-    //private ArrayList<MischiefPermission> permissions;
     private ArrayList<String> groups = new ArrayList<>(); //We keep a reference to the group's id, not the class
     private String prefix;
     private String suffix;
@@ -74,12 +73,21 @@ public class MischiefUser {
         permissions.remove(new MischiefPermission(permission).toString());
     }
 
-    public ArrayList<String> getGroups() {
-        return groups;
+    public void addGroup(MischiefGroup group) {
+        addGroup(group.getId());
     }
 
-    public void setGroups(ArrayList<String> groups) {
-        this.groups = groups;
+    public void addGroup(String groupID) {
+        if(!groups.contains(groupID))
+            groups.add(groupID);
+    }
+
+    public void removeGroup(MischiefGroup group) {
+        removeGroup(group.getId());
+    }
+
+    public void removeGroup(String groupID) {
+        groups.remove(groupID);
     }
 
     public String getPrefix() {

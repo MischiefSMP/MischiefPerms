@@ -16,8 +16,35 @@ public class PermissionManager {
         PermissionManager.plugin = plugin;
     }
 
+    public static boolean hasGroup(String id) {
+        return groups.containsKey(id);
+    }
+
     public static MischiefGroup getGroup(String id) {
         return groups.get(id);
+    }
+
+    public static void createGroup(String id) {
+        if(!hasGroup(id)) {
+            groups.put(id, new MischiefGroup());
+        }
+    }
+
+    public static void deleteGroup(String id) {
+        if(!hasGroup(id))
+            return;
+
+        //Remove users from this group
+        MischiefGroup g = groups.get(id);
+        for(UUID member : g.getMembers()) {
+            MischiefUser user = users.get(member);
+            if(user != null) {
+                user.removeGroup(g.getId());
+            }
+        }
+
+        //Remove group
+        groups.remove(g.getId());
     }
 
 
