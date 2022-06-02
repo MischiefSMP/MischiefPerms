@@ -120,6 +120,8 @@ public class CommandPerms implements CommandExecutor {
         MischiefGroup g = PermissionManager.getGroup(id);
         sender.sendMessage(String.format("Group ID: %s", id));
         sender.sendMessage(String.format("Index: %d", g.getIndex()));
+        sender.sendMessage(String.format("Prefix: %s", g.getPrefix()));
+        sender.sendMessage(String.format("Suffix: %s", g.getSuffix()));
         sender.sendMessage(String.format("Users: %s", g.getMembers()));
         sender.sendMessage("Permissions:");
         for(MischiefPermission p : g.getPermissions()) {
