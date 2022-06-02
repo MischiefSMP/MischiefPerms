@@ -14,6 +14,7 @@ messages:
   click-to-disallow: "Click to disallow"
   click-to-allow: "Click to allow"
   click-to-remove: "Click to remove"
+  click-group-info: "Show group info"
   cmd-desc:
     perms:
       help: "Shows all usages"

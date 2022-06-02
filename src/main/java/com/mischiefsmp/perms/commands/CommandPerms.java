@@ -13,6 +13,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
+import org.checkerframework.checker.units.qual.C;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandPerms implements CommandExecutor {
@@ -212,7 +213,15 @@ public class CommandPerms implements CommandExecutor {
             perm.setAllowed(new MischiefPermission(permission).isAllowed());
         else
             group.addPermission(permission);
-        sender.sendMessage(LangManager.getString(sender, "group-perm-added", permission, id));
+
+        TextComponent successText = new TextComponent(LangManager.getString(sender, "group-perm-added", permission, id));
+        TextComponent infoText = new TextComponent("[I]");
+        infoText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-group-info"))));
+        String infoCMD = String.format(ReadOnly.getCMDExec("perms.group"), id);
+        infoText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, infoCMD));
+
+        BaseComponent[] components = new ComponentBuilder(successText).append(" ").append(infoText).create();
+        sender.spigot().sendMessage(components);
     }
 
     private void removeGroup(CommandSender sender, String id, String permission, String world) {
