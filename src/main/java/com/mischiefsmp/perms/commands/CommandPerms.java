@@ -3,6 +3,7 @@ package com.mischiefsmp.perms.commands;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.features.LangManager;
+import com.mischiefsmp.perms.utils.CmdInfo;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -56,7 +57,7 @@ public class CommandPerms implements CommandExecutor {
                 return true;
             }
 
-            //TODO: Split todo properly to allow the usage of ""
+            //TODO: Split args properly to allow the usage of ""
             switch (one) {
                 case "create" -> createGroup(sender, two);
                 case "delete" -> deleteGroup(sender, two);
@@ -142,8 +143,8 @@ public class CommandPerms implements CommandExecutor {
 
     private void sendHelp(CommandSender sender) {
         sender.sendMessage(LangManager.getString(sender, "available-cmds"));
-        for(String cmd : ReadOnly.getCMDHelp(sender, "perms")) {
-            sender.sendMessage(cmd);
+        for(CmdInfo cmd : ReadOnly.getCMDHelp(sender, "perms")) {
+            sender.sendMessage(String.format("%s: %s", cmd.usage(), cmd.desc()));
         }
     }
 }

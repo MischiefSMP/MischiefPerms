@@ -2,6 +2,7 @@ package com.mischiefsmp.perms.features;
 
 import com.mischiefsmp.perms.FileUtils;
 import com.mischiefsmp.perms.MischiefPerms;
+import com.mischiefsmp.perms.utils.CmdInfo;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -42,8 +43,9 @@ public class ReadOnly {
     }
 
     //Example: getCMDHelp(sender, "perms");
-    public static ArrayList<String> getCMDHelp(CommandSender sender, String cmdKey) {
-        ArrayList<String> result = new ArrayList<>();
+    //Returns a list of CmdInfo which contains usage, permission, execution and a translated description
+    public static ArrayList<CmdInfo> getCMDHelp(CommandSender sender, String cmdKey) {
+        ArrayList<CmdInfo> result = new ArrayList<>();
         ConfigurationSection section = CMD_INFO.getConfigurationSection(String.format("commands.%s", cmdKey));
         if(section == null)
             return result;
@@ -52,7 +54,9 @@ public class ReadOnly {
             String permission = CMD_INFO.getString(String.format("commands.%s.%s.permission", cmdKey, key));
             if(permission != null && sender.hasPermission(permission)) {
                 String usage = CMD_INFO.getString(String.format("commands.%s.%s.usage", cmdKey, key));
-                result.add(usage);
+                String exec = CMD_INFO.getString(String.format("commands.%s.%s.exec", cmdKey, key));
+                String desc = LangManager.getString(sender, String.format("cmd-desc.%s.%s", cmdKey, key));
+                result.add(new CmdInfo(usage, permission, exec, desc));
             }
         }
 
