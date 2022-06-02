@@ -42,6 +42,13 @@ public class ReadOnly {
         return getCMDUsage(cmdKey);
     }
 
+    public static String getCMDSuggestion(String cmdKey) {
+        String path = String.format("commands.%s.suggest", cmdKey);
+        if(CMD_INFO.contains(path))
+            return CMD_INFO.getString(path);
+        return getCMDUsage(cmdKey);
+    }
+
     //Example: getCMDHelp(sender, "perms");
     //Returns a list of CmdInfo which contains usage, permission, execution and a translated description
     public static ArrayList<CmdInfo> getCMDHelp(CommandSender sender, String cmdKey) {
