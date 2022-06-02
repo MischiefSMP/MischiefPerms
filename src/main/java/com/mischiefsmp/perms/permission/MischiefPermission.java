@@ -42,7 +42,6 @@ public class MischiefPermission {
             return true;
 
         int length = Math.max(parts.length, o.parts.length);
-        boolean ok = true;
         MischiefPermissionPart last = null;
         for(int i = 0; i < length; i++) {
             MischiefPermissionPart p1 = arg(parts, i);
@@ -50,19 +49,17 @@ public class MischiefPermission {
 
             if(p1 == null) {
                 if(last != null && !last.equals(WILDCARD_PART))
-                    ok = false;
-                else
-                    break;
+                    return false;
             } else {
                 if(p2 != null && !p1.equals(p2))
-                    ok = false;
+                    return false;
             }
 
             if(p1 != null)
                 last = p1;
         }
 
-        return ok;
+        return true;
     }
 
     private MischiefPermissionPart arg(MischiefPermissionPart[] ps, int index) {
