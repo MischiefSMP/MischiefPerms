@@ -44,7 +44,7 @@ commands:
       usage: "/perms group suffix <id> <suffix>"
       permission: "perms.group.suffix"
     group-index:
-      usage: "/perms group index <up|down>"
+      usage: "/perms group index <id> <up|down>"
       permission: "perms.group.index"
     user:
       usage: "/perms user <username>"

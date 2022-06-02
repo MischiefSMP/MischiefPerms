@@ -3,6 +3,7 @@ package com.mischiefsmp.perms.commands;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.features.LangManager;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -38,6 +39,36 @@ public class CommandPerms implements CommandExecutor {
             }
             return true;
         } else if(args[0].equals("group")) {
+            if(args.length < 2) {
+                sendWU(sender);
+                return true;
+            }
+
+            // -> /perms group  one  two   three  four
+            // -> /perms group grant <id> <perm> [world]
+            final String one = arg(args, 1);
+            final String two = arg(args, 2);
+            final String three = arg(args, 3);
+            final String four = arg(args, 4);
+
+            if(one == null) {
+                sendWU(sender);
+                return true;
+            }
+
+            //TODO: Split todo properly to allow the usage of ""
+            switch (one) {
+                case "create" -> createGroup(sender, two);
+                case "delete" -> deleteGroup(sender, two);
+                case "clear" -> clearGroup(sender, two);
+                case "grant" -> grantGroup(sender, two, three, four);
+                case "deny" -> denyGroup(sender, two, three, four);
+                case "remove" -> removeGroup(sender, two, three, four);
+                case "prefix" -> prefixGroup(sender, two, three);
+                case "suffix" -> suffixGroup(sender, two, three);
+                // -> /perms group admin
+                default -> infoGroup(sender, one);
+            }
 
         } else if(args[0].equals("user")) {
 
@@ -45,6 +76,12 @@ public class CommandPerms implements CommandExecutor {
 
 
         return true;
+    }
+
+    private String arg(String[] args, int index) {
+        if(args.length > index)
+            return args[index];
+        return null;
     }
 
     private boolean isAllowed(CommandSender sender, String permission) {
@@ -60,6 +97,42 @@ public class CommandPerms implements CommandExecutor {
 
     private void listGroups(CommandSender sender) {
         sender.sendMessage("All groups:");
+    }
+
+    private void infoGroup(CommandSender sender, String id) {
+        sender.sendMessage(String.format("INFO ID: %s", id));
+    }
+
+    private void createGroup(CommandSender sender, String id) {
+        sender.sendMessage(String.format("CREATE ID: %s", id));
+    }
+
+    private void deleteGroup(CommandSender sender, String id) {
+        sender.sendMessage(String.format("DELETE ID: %s", id));
+    }
+
+    private void clearGroup(CommandSender sender, String id) {
+        sender.sendMessage(String.format("CLEAR ID: %s", id));
+    }
+
+    private void grantGroup(CommandSender sender, String id, String permission, String world) {
+        sender.sendMessage(String.format("GRANT ID: %s PERM: %s, WORLD: %s", id, permission, world));
+    }
+
+    private void denyGroup(CommandSender sender, String id, String permission, String world) {
+        sender.sendMessage(String.format("DENY ID: %s PERM: %s, WORLD: %s", id, permission, world));
+    }
+
+    private void removeGroup(CommandSender sender, String id, String permission, String world) {
+        sender.sendMessage(String.format("REMOVE ID: %s PERM: %s, WORLD: %s", id, permission, world));
+    }
+
+    private void prefixGroup(CommandSender sender, String id, String prefix) {
+        sender.sendMessage(String.format("PREFIX ID: %s PREFIX: %s", id, prefix));
+    }
+
+    private void suffixGroup(CommandSender sender, String id, String suffix) {
+        sender.sendMessage(String.format("SUFFIX ID: %s PREFIX: %s", id, suffix));
     }
 
     private void sendWU(CommandSender sender) {
