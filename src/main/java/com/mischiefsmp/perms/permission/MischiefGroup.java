@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public class MischiefGroup {
     private String id;
-    private int index;
-    private HashMap<String, MischiefPermission> permissions = new HashMap<>();
+    private int index = -1;
+    private final HashMap<String, MischiefPermission> permissions = new HashMap<>();
     private ArrayList<UUID> members = new ArrayList<>();
     private String prefix;
     private String suffix;
@@ -40,6 +40,13 @@ public class MischiefGroup {
             }
         }
         return null;
+    }
+
+    public void clear() {
+        int index = -1;
+        permissions.clear();
+        prefix = null;
+        suffix = null;
     }
 
     public void addPermission(String permission) {

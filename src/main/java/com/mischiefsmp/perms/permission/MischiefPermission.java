@@ -75,6 +75,10 @@ public class MischiefPermission {
         return null;
     }
 
+    public void setAllowed(boolean allowed) {
+        isAllowed = allowed;
+    }
+
     public boolean isAllowed() {
         return isAllowed;
     }

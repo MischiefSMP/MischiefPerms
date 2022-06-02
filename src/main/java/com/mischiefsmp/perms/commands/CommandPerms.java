@@ -137,7 +137,18 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private void clearGroup(CommandSender sender, String id) {
-        sender.sendMessage(String.format("CLEAR ID: %s", id));
+        if(id == null) {
+            sendWU(sender);
+            return;
+        }
+
+        if(!PermissionManager.hasGroup(id)) {
+            sender.sendMessage(LangManager.getString(sender, "group-nf", id));
+            return;
+        }
+
+        PermissionManager.getGroup(id).clear();
+        sender.sendMessage(LangManager.getString(sender, "group-cleared", id));
     }
 
     private void addGroup(CommandSender sender, String id, String permission, String world) {
@@ -148,14 +159,18 @@ public class CommandPerms implements CommandExecutor {
         //TODO: Implement per-world permissions
 
         if(!PermissionManager.hasGroup(id)) {
-            sender.sendMessage("Group not found!");
+            sender.sendMessage(LangManager.getString(sender, "group-nf", id));
             return;
         }
 
+        //Check if we already have this permission already (maybe not allowed?)
         MischiefGroup group = PermissionManager.getGroup(id);
-        //Check if we already have this permission at all
         MischiefPermission perm = group.getPermission(permission, true);
-
+        if(perm != null)
+            perm.setAllowed(new MischiefPermission(permission).isAllowed());
+        else
+            group.addPermission(permission);
+        sender.sendMessage(LangManager.getString(sender, "group-perm-added", permission, id));
     }
 
     private void removeGroup(CommandSender sender, String id, String permission, String world) {

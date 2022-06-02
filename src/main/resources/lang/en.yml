@@ -10,6 +10,7 @@ messages:
   group-removed: "Group %s removed!"
   group-perm-added: "Added %s to %s!"
   group-perm-removed: "Removed %s from %s!"
+  group-cleared: "Group %s was reset!"
   cmd-desc:
     perms:
       help: "Shows all usages"
