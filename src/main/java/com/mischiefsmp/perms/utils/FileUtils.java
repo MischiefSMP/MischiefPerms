@@ -1,5 +1,6 @@
-package com.mischiefsmp.perms;
+package com.mischiefsmp.perms.utils;
 
+import com.mischiefsmp.perms.MischiefPerms;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 

@@ -1,6 +1,6 @@
 package com.mischiefsmp.perms.features;
 
-import com.mischiefsmp.perms.FileUtils;
+import com.mischiefsmp.perms.utils.FileUtils;
 import com.mischiefsmp.perms.MischiefPerms;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -5,6 +5,7 @@ import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.features.PermissionManager;
 import com.mischiefsmp.perms.features.PluginConfig;
 import com.mischiefsmp.perms.features.ReadOnly;
+import com.mischiefsmp.perms.utils.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
