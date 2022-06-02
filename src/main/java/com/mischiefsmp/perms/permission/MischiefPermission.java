@@ -32,10 +32,14 @@ public class MischiefPermission {
 
     @Override
     public boolean equals(Object other) {
+        return equals(other, false);
+    }
+
+    public boolean equals(Object other, boolean ignoreAllowed) {
         if(!(other instanceof MischiefPermission o))
             return false;
 
-        if(!isAllowed == o.isAllowed)
+        if(!isAllowed == o.isAllowed && !ignoreAllowed)
             return false;
 
         if(parts.length == 1 && parts[0].equals(WILDCARD_PART))
@@ -66,5 +70,9 @@ public class MischiefPermission {
         if(index < ps.length)
             return ps[index];
         return null;
+    }
+
+    public boolean isAllowed() {
+        return isAllowed;
     }
 }
