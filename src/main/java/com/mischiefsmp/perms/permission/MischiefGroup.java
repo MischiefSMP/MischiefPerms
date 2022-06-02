@@ -1,6 +1,7 @@
 package com.mischiefsmp.perms.permission;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -56,6 +57,13 @@ public class MischiefGroup {
 
     public void removePermission(String permission) {
         permissions.remove(new MischiefPermission(permission).toString());
+    }
+
+    public ArrayList<MischiefPermission> getPermissions() {
+        ArrayList<MischiefPermission> list = new ArrayList<>();
+        for(String key : permissions.keySet())
+            list.add(permissions.get(key));
+        return list;
     }
 
     public String getPrefix() {

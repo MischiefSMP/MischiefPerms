@@ -7,7 +7,6 @@ import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.permission.MischiefPermission;
 import com.mischiefsmp.perms.utils.CmdInfo;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -103,7 +102,23 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private void infoGroup(CommandSender sender, String id) {
-        sender.sendMessage(String.format("INFO ID: %s", id));
+        if(id == null) {
+            sendWU(sender);
+            return;
+        }
+
+        if(!PermissionManager.hasGroup(id)) {
+            sender.sendMessage(LangManager.getString(sender, "group-nf", id));
+            return;
+        }
+
+        MischiefGroup g = PermissionManager.getGroup(id);
+        sender.sendMessage(String.format("Group ID: %s", id));
+        sender.sendMessage(String.format("Index: %d", g.getIndex()));
+        sender.sendMessage(String.format("Users: %s", g.getMembers()));
+        sender.sendMessage("Permissions:");
+        for(MischiefPermission p : g.getPermissions())
+            sender.sendMessage(String.format("- %s", p.toString()));
     }
 
     private void createGroup(CommandSender sender, String id) {
