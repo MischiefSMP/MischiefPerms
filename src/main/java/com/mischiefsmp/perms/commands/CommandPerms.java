@@ -149,10 +149,10 @@ public class CommandPerms implements CommandExecutor {
         sender.sendMessage(String.format("Prefix: %s", g.getPrefix()));
         sender.sendMessage(String.format("Suffix: %s", g.getSuffix()));
         sender.sendMessage(String.format("Users: %s", g.getMembers()));
+        
         TextComponent permissionsText = new TextComponent("Permissions: ");
         TextComponent addPermText = new TextComponent("[+]");
-        //TODO: Translate
-        addPermText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to add new permission")));
+        addPermText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-to-add-perm"))));
         addPermText.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format(ReadOnly.getCMDSuggestion("perms.group-add"), g.getId())));
 
         sender.spigot().sendMessage(new ComponentBuilder(permissionsText).append(addPermText).create());
