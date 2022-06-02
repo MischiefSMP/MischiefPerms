@@ -2,6 +2,9 @@ package com.mischiefsmp.perms.permission;
 
 import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.features.PermissionManager;
+import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +31,7 @@ public class MischiefUser {
             MischiefPerms.log("canRun check for permission <%s>. It is denied with the - char. Should this be asked?", Level.WARNING, permission);
 
         boolean canRun = false;
+        MischiefPermission successfulPermission = null;
         //Check groups
         for(String groupID : groups) {
             MischiefGroup g = PermissionManager.getGroup(groupID);
@@ -39,8 +43,11 @@ public class MischiefUser {
                     break;
                 }
 
-                if(g.getPermission(permission.toString(), false) != null)
+                MischiefPermission check = g.getPermission(permission.toString(), false);
+                if(check != null) {
                     canRun = true;
+                    successfulPermission = check;
+                }
             } else {
                 MischiefPerms.log("Group <%s> in MischiefUser <%s> is null! This should not happen!", Level.WARNING, groupID, uuid);
             }
@@ -56,10 +63,26 @@ public class MischiefUser {
                     break;
                 }
             }
-            if(p.equals(permission))
+            if(p.equals(permission)) {
                 canRun = true;
+                successfulPermission = p;
+            }
         }
 
+        //World check
+        if(successfulPermission != null) {
+            String wCheck = successfulPermission.getWorld();
+            if (canRun && wCheck != null && !wCheck.isEmpty()) {
+                World hasToBeIn = Bukkit.getServer().getWorld(wCheck);
+                Player player = Bukkit.getPlayer(uuid);
+                if (hasToBeIn != null && player != null) {
+                    World inWorld = player.getWorld();
+                    //Permission has a world set
+                    if (hasToBeIn != inWorld)
+                        canRun = false;
+                }
+            }
+        }
         return canRun;
     }
 

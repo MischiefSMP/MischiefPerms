@@ -4,6 +4,7 @@ messages:
   missing-arguments: "Missing arguments!"
   try-cmd: "Try running %s!"
   available-cmds: "Available commands:"
+  world-nf: "World %s could not be found!"
   group-nf: "Group %s not found!"
   group-exists: "Group %s already exists!"
   group-created: "Group %s created!"

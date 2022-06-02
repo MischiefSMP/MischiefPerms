@@ -9,6 +9,7 @@ import com.mischiefsmp.perms.permission.MischiefPermission;
 import com.mischiefsmp.perms.utils.CmdInfo;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Text;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -89,6 +90,14 @@ public class CommandPerms implements CommandExecutor {
         return null;
     }
 
+    private boolean ensureWorldExists(CommandSender sender, String world) {
+        if(Bukkit.getWorld(world) == null) {
+            sender.sendMessage(LangManager.getString(sender, "world-nf", world));
+            return false;
+        }
+        return true;
+    }
+
     private boolean isAllowed(CommandSender sender, String permission) {
         boolean should = sender.isOp() || sender.hasPermission(permission) || sender.hasPermission("*");
         if(!should)
@@ -114,7 +123,6 @@ public class CommandPerms implements CommandExecutor {
             sender.sendMessage(LangManager.getString(sender, "group-nf", id));
             return;
         }
-        //TODO: add per world stuff
         //TODO: Refactor?
 
         MischiefGroup g = PermissionManager.getGroup(id);
@@ -203,6 +211,9 @@ public class CommandPerms implements CommandExecutor {
             sender.sendMessage(LangManager.getString(sender, "group-nf", id));
             return;
         }
+
+        if(!ensureWorldExists(sender, world))
+            return;
 
         //Check if we already have this permission already (maybe not allowed?)
         MischiefGroup group = PermissionManager.getGroup(id);

@@ -4,7 +4,6 @@ public class MischiefPermission {
     private final MischiefPermissionPart[] parts;
     private String world = null;
     private boolean isAllowed = true;
-    //TODO: Save world this applies in, if set
     private final static MischiefPermissionPart WILDCARD_PART = new MischiefPermissionPart("*");
 
     public MischiefPermission(String permission) {
