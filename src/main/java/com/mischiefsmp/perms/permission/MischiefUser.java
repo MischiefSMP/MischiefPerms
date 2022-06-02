@@ -28,17 +28,14 @@ public class MischiefUser {
         for(String groupID : groups) {
             MischiefGroup g = PermissionManager.getGroup(groupID);
             if(g != null) {
-                for (MischiefPermission p : g.getPermissions()) {
-                    if(p.equals(permission, true)) {
-                        if(!p.isAllowed()) {
-                            canRun = false;
-                            break;
-                        }
-                    }
-                    if (p.equals(permission)) {
-                        canRun = true;
-                    }
+                MischiefPermission ignoreAllowed = g.getPermission(permission.toString(), true);
+                if(!ignoreAllowed.isAllowed()) {
+                    canRun = false;
+                    break;
                 }
+
+                if(g.getPermission(permission.toString(), false) != null)
+                    canRun = true;
             } else {
                 MischiefPerms.log("Group <%s> in MischiefUser <%s> is null! This should not happen!", Level.WARNING, groupID, uuid);
             }

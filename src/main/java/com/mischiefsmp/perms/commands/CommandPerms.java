@@ -4,6 +4,8 @@ import com.mischiefsmp.perms.features.PermissionManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.features.LangManager;
+import com.mischiefsmp.perms.permission.MischiefGroup;
+import com.mischiefsmp.perms.permission.MischiefPermission;
 import com.mischiefsmp.perms.utils.CmdInfo;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -138,7 +140,21 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private void grantGroup(CommandSender sender, String id, String permission, String world) {
-        sender.sendMessage(String.format("GRANT ID: %s PERM: %s, WORLD: %s", id, permission, world));
+        if(id == null || permission == null) {
+            sendWU(sender);
+            return;
+        }
+        //TODO: Implement per-world permissions
+
+        if(!PermissionManager.hasGroup(id)) {
+            sender.sendMessage("Group not found!");
+            return;
+        }
+
+        MischiefGroup group = PermissionManager.getGroup(id);
+        //Check if we already have this permission at all
+        MischiefPermission perm = group.getPermission(permission, true);
+
     }
 
     private void denyGroup(CommandSender sender, String id, String permission, String world) {

@@ -1,13 +1,14 @@
 package com.mischiefsmp.perms.permission;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public class MischiefGroup {
     private String id;
     private int index;
-    private ArrayList<MischiefPermission> permissions;
-    private ArrayList<UUID> members = new ArrayList<UUID>();
+    private HashMap<String, MischiefPermission> permissions = new HashMap<>();
+    private ArrayList<UUID> members = new ArrayList<>();
     private String prefix;
     private String suffix;
 
@@ -27,12 +28,23 @@ public class MischiefGroup {
         this.index = index;
     }
 
-    public ArrayList<MischiefPermission> getPermissions() {
-        return permissions;
+    public MischiefPermission getPermission(String permission, boolean ignoreAllowed) {
+        for(String pKey : permissions.keySet()) {
+            MischiefPermission p = permissions.get(pKey);
+            if(p.equals(new MischiefPermission(permission), true)) {
+                return p;
+            }
+        }
+        return null;
     }
 
-    public void setPermissions(ArrayList<MischiefPermission> permissions) {
-        this.permissions = permissions;
+    public void addPermission(String permission) {
+        MischiefPermission newPermission = new MischiefPermission(permission);
+        permissions.put(newPermission.toString(), newPermission);
+    }
+
+    public void removePermission(String permission) {
+        permissions.remove(new MischiefPermission(permission).toString());
     }
 
     public String getPrefix() {
