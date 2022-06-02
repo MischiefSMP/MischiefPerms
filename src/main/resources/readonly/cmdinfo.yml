@@ -32,11 +32,12 @@ commands:
       usage: "/perms group add <id> <permission> [world]"
       permission: "perms.group.add"
       exec: "/perms group add %s %s %s"
-      suggest: "/perms group add %s"
+      suggest: "/perms group add %s "
     group-remove:
       usage: "/perms group remove <id> <permission> [world]"
       permission: "perms.group.remove"
       exec: "/perms group remove %s %s %s"
+      suggest: "/perms group remove %s "
     group-prefix:
       usage: "/perms group prefix <id> <prefix>"
       permission: "perms.group.prefix"
