@@ -38,9 +38,12 @@ public class MischiefPerms extends JavaPlugin {
     }
 
     public static void log(Object message, Level level, Object... args) {
-        String msg = message.toString();
-        if(args.length > 0)
-            msg = String.format(message.toString(), args);
+        String msg = "null";
+        if(message != null) {
+            msg = message.toString();
+            if(args.length > 0)
+                msg = String.format(message.toString(), args);
+        }
         logger.log(level, msg);
     }
 
