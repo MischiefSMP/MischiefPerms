@@ -31,9 +31,11 @@ commands:
     group-add:
       usage: "/perms group add <id> <permission> [world]"
       permission: "perms.group.add"
+      exec: "/perms group add %s %s %s"
     group-remove:
       usage: "/perms group remove <id> <permission> [world]"
       permission: "perms.group.remove"
+      exec: "/perms group remove %s %s %s"
     group-prefix:
       usage: "/perms group prefix <id> <prefix>"
       permission: "perms.group.prefix"
