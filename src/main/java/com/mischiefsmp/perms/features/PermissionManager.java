@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public class PermissionManager {
     private static MischiefPerms plugin;
-    private static HashMap<String, MischiefGroup> groups = new HashMap<>();
-    private static HashMap<UUID, MischiefUser> users = new HashMap<>();
+    private static final HashMap<String, MischiefGroup> groups = new HashMap<>();
+    private static final HashMap<UUID, MischiefUser> users = new HashMap<>();
 
     public static void init(MischiefPerms plugin) {
         PermissionManager.plugin = plugin;

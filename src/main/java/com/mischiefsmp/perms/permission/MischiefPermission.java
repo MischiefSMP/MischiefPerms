@@ -32,6 +32,9 @@ public class MischiefPermission {
 
     @Override
     public boolean equals(Object other) {
+        if(!(other instanceof MischiefPermission))
+            return false;
+
         return equals(other, false);
     }
 

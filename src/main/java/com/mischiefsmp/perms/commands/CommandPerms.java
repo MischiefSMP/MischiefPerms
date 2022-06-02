@@ -120,7 +120,17 @@ public class CommandPerms implements CommandExecutor {
     }
 
     private void deleteGroup(CommandSender sender, String id) {
-        sender.sendMessage(String.format("DELETE ID: %s", id));
+        if(id == null) {
+            sendWU(sender);
+            return;
+        }
+
+        if(!PermissionManager.hasGroup(id)) {
+            sender.sendMessage("Group not found!");
+            return;
+        }
+
+        PermissionManager.deleteGroup(id);
     }
 
     private void clearGroup(CommandSender sender, String id) {
