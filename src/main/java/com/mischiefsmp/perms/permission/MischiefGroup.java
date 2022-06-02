@@ -12,6 +12,10 @@ public class MischiefGroup {
     private String prefix;
     private String suffix;
 
+    public MischiefGroup(String id) {
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

@@ -9,11 +9,15 @@ import java.util.UUID;
 import java.util.logging.Level;
 
 public class MischiefUser {
-    private UUID uuid;
-    private HashMap<String, MischiefPermission> permissions = new HashMap<>();
-    private ArrayList<String> groups = new ArrayList<>(); //We keep a reference to the group's id, not the class
+    private final UUID uuid;
+    private final HashMap<String, MischiefPermission> permissions = new HashMap<>();
+    private final ArrayList<String> groups = new ArrayList<>(); //We keep a reference to the group's id, not the class
     private String prefix;
     private String suffix;
+
+    public MischiefUser(UUID uuid) {
+        this.uuid = uuid;
+    }
 
     public boolean canRun(String permission) {
         return canRun(new MischiefPermission(permission));

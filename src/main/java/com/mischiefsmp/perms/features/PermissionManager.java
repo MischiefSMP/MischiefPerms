@@ -6,6 +6,7 @@ import com.mischiefsmp.perms.permission.MischiefUser;
 
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class PermissionManager {
     private static MischiefPerms plugin;
@@ -26,7 +27,7 @@ public class PermissionManager {
 
     public static void createGroup(String id) {
         if(!hasGroup(id)) {
-            groups.put(id, new MischiefGroup());
+            groups.put(id, new MischiefGroup(id));
         }
     }
 
