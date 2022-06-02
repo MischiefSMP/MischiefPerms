@@ -11,6 +11,9 @@ messages:
   group-perm-added: "Added %s to %s!"
   group-perm-removed: "Removed %s from %s!"
   group-cleared: "Group %s was reset!"
+  click-to-disallow: "Click to disallow"
+  click-to-allow: "Click to allow"
+  click-to-remove: "Click to remove"
   cmd-desc:
     perms:
       help: "Shows all usages"

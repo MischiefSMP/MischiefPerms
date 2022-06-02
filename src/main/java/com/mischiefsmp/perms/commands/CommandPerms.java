@@ -115,6 +115,7 @@ public class CommandPerms implements CommandExecutor {
             return;
         }
         //TODO: add per world stuff
+        //TODO: Refactor?
 
         MischiefGroup g = PermissionManager.getGroup(id);
         sender.sendMessage(String.format("Group ID: %s", id));
@@ -124,16 +125,17 @@ public class CommandPerms implements CommandExecutor {
         for(MischiefPermission p : g.getPermissions()) {
             TextComponent permissionText = new TextComponent(String.format("- %s", p.toString()));
 
+            //TODO: Can we somehow show the info screen after we click on something in a pretty way?
             TextComponent invertText = new TextComponent("[I]");
-            String hoverText = String.format("Click to %s", p.isAllowed() ? "disallow" : "allow");
-            invertText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(hoverText)));
+            String hoverText = p.isAllowed() ? "click-to-disallow" : "click-to-allow";
+            invertText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, hoverText))));
             MischiefPermission invertedPermission = new MischiefPermission(p);
             invertedPermission.setAllowed(!invertedPermission.isAllowed());
             String invertCMD = String.format(ReadOnly.getCMDExec("perms.group-add"), g.getId(), invertedPermission, "");
             invertText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, invertCMD));
 
             TextComponent removeText = new TextComponent("[X]");
-            removeText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to remove")));
+            removeText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-to-remove"))));
             String removeCMD = String.format(ReadOnly.getCMDExec("perms.group-remove"), g.getId(), invertedPermission, "");
             removeText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, removeCMD));
 
