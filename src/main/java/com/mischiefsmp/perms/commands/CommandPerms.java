@@ -7,9 +7,12 @@ import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.permission.MischiefPermission;
 import com.mischiefsmp.perms.utils.CmdInfo;
+import net.md_5.bungee.api.chat.*;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 public class CommandPerms implements CommandExecutor {
@@ -111,14 +114,34 @@ public class CommandPerms implements CommandExecutor {
             sender.sendMessage(LangManager.getString(sender, "group-nf", id));
             return;
         }
+        //TODO: add per world stuff
 
         MischiefGroup g = PermissionManager.getGroup(id);
         sender.sendMessage(String.format("Group ID: %s", id));
         sender.sendMessage(String.format("Index: %d", g.getIndex()));
         sender.sendMessage(String.format("Users: %s", g.getMembers()));
         sender.sendMessage("Permissions:");
-        for(MischiefPermission p : g.getPermissions())
-            sender.sendMessage(String.format("- %s", p.toString()));
+        for(MischiefPermission p : g.getPermissions()) {
+            TextComponent permissionText = new TextComponent(String.format("- %s", p.toString()));
+
+            TextComponent invertText = new TextComponent("[I]");
+            String hoverText = String.format("Click to %s", p.isAllowed() ? "disallow" : "allow");
+            invertText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(hoverText)));
+            MischiefPermission invertedPermission = new MischiefPermission(p);
+            invertedPermission.setAllowed(!invertedPermission.isAllowed());
+            String invertCMD = String.format(ReadOnly.getCMDExec("perms.group-add"), g.getId(), invertedPermission, "");
+            invertText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, invertCMD));
+
+            TextComponent removeText = new TextComponent("[X]");
+            removeText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("Click to remove")));
+            String removeCMD = String.format(ReadOnly.getCMDExec("perms.group-remove"), g.getId(), invertedPermission, "");
+            removeText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, removeCMD));
+
+            BaseComponent[] components = new ComponentBuilder(permissionText)
+                            .append(" ").append(invertText)
+                            .append(" ").append(removeText).create();
+            sender.spigot().sendMessage(components);
+        }
     }
 
     private void createGroup(CommandSender sender, String id) {

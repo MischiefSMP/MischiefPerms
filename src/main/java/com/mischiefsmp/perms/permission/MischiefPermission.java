@@ -19,6 +19,11 @@ public class MischiefPermission {
         }
     }
 
+    public MischiefPermission(MischiefPermission permission) {
+        this.parts = permission.parts;
+        this.isAllowed = permission.isAllowed;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(isAllowed ? "" : "-");
