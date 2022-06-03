@@ -2,6 +2,12 @@ package com.mischiefsmp.perms.commands.perms;
 
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.features.LangManager;
+import com.mischiefsmp.perms.utils.Utils;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +29,19 @@ public class CommandPerms implements CommandExecutor {
             return true;
         } else if(args[0].equals("list")) {
             if(args.length < 2) {
-                CommandPermsUtils.sendWU(sender);
+                String clickExec = LangManager.getString(sender, "click-to-exec");
+                String execGroups = ReadOnly.getCMDExec("perms.list-groups");
+                String execUsers = ReadOnly.getCMDExec("perms.list-users");
+
+                TextComponent groupsText = new TextComponent(execGroups);
+                TextComponent groupsRunText = Utils.getHoverAndCMDText("[R]", clickExec, execGroups);
+
+                TextComponent usersText = new TextComponent(execUsers);
+                TextComponent usersRunText = Utils.getHoverAndCMDText("[R]", clickExec, execUsers);
+
+                sender.sendMessage(LangManager.getString(sender, "wrong-usage"));
+                sender.spigot().sendMessage(new ComponentBuilder(groupsText).append(" ").append(groupsRunText).create());
+                sender.spigot().sendMessage(new ComponentBuilder(usersText).append(" ").append(usersRunText).create());
                 return true;
             }
             switch (args[1]) {

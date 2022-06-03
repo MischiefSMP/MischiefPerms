@@ -18,12 +18,13 @@ messages:
   click-to-allow: "Click to allow"
   click-to-remove: "Click to remove"
   click-to-add-perm: "Click to add permission"
+  click-to-exec: "Click to execute"
   click-group-info: "Show group info"
   cmd-desc:
     perms:
       help: "Shows all usages"
-      list-group: "Lists all groups"
-      list-user: "Lists all users"
+      list-groups: "Lists all groups"
+      list-users: "Lists all users"
       group: "Shows info about a certain group"
       group-create: "Creates a new group with the given id"
       group-delete: "Deletes the group with the given id"
