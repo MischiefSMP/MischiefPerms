@@ -29,4 +29,9 @@ public class FileUtils {
             return null;
         }
     }
+
+    public static void deleteFile(File file) {
+        if(!file.delete())
+            MischiefPerms.log("File %s could not be deleted.", Level.WARNING, file.getAbsolutePath());
+    }
 }

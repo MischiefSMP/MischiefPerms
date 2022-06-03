@@ -21,19 +21,16 @@ public class CommandPermsGroup {
     }
 
     public static void infoGroup(CommandSender sender, MischiefGroup group) {
-        //TODO: Refactor?
-
         sender.sendMessage(String.format("Group ID: %s", group.getId()));
         sender.sendMessage(String.format("Index: %d", group.getIndex()));
-        sender.sendMessage(String.format("Prefix: %s", group.getPrefix()));
-        sender.sendMessage(String.format("Suffix: %s", group.getSuffix()));
+        sender.sendMessage(String.format("Prefix: %s", group.getPrefix() != null ? group.getPrefix() : "None"));
+        sender.sendMessage(String.format("Suffix: %s", group.getSuffix() != null ? group.getSuffix() : "None"));
         sender.sendMessage(String.format("Users: %s", group.getMembers()));
 
         TextComponent permissionsText = new TextComponent("Permissions: ");
         TextComponent addPermText = new TextComponent("[+]");
         addPermText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-to-add-perm"))));
         addPermText.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, String.format(ReadOnly.getCMDSuggestion("perms.group-add"), group.getId())));
-
         sender.spigot().sendMessage(new ComponentBuilder(permissionsText).append(addPermText).create());
 
         for(MischiefPermission p : group.getPermissions()) {

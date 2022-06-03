@@ -8,11 +8,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import java.util.HashMap;
 
 public class LangManager {
-    private static MischiefPerms plugin;
     private static final HashMap<String, FileConfiguration> langMaps = new HashMap<>();
 
-    public static void init(MischiefPerms plugin) {
-        LangManager.plugin = plugin;
+    public static void init() {
         for(String lang : PluginConfig.getLanguages()) {
             langMaps.put(lang, FileUtils.loadConfig(String.format("lang/%s.yml", lang)));
         }

@@ -16,11 +16,11 @@ public class ReadOnly {
     public static void init(MischiefPerms plugin) {
         CMD_INFO = FileUtils.loadConfig("readonly/cmdinfo.yml");
 
-        //This folder is called readonly, if we for some reason cannot delete it it doesnt matter too much.
-        //Make sure to put a "WARNING - DONT EDIT" message into every .yml file in there
+        //This folder is called readonly, if we for some reason cannot delete it that doesn't matter too much.
+        //Make sure to put a "WARNING - DON'T EDIT" message into every .yml file in there
         final File df = plugin.getDataFolder();
-        new File(df, "readonly/cmdinfo.yml").delete();
-        new File(df, "readonly").delete();
+        FileUtils.deleteFile(new File(df, "readonly/cmdinfo.yml"));
+        FileUtils.deleteFile(new File(df, "readonly"));
     }
 
     //Example: getCMDUsage("perms.group-create");
