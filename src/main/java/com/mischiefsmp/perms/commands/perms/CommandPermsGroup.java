@@ -106,7 +106,7 @@ public class CommandPermsGroup {
             //Permission exists, but possibly disabled/enabled? Switch!
             existingPerm.setAllowed(new MischiefPermission(permission).isAllowed());
         } else {
-            //Permission doesnt exist, adding
+            //Permission doesn't exist, adding
             group.addPermission(permToAdd);
         }
 
@@ -139,5 +139,14 @@ public class CommandPermsGroup {
 
         group.setSuffix(suffix);
         sender.sendMessage(LangManager.getString(sender, "group-suffix-given", group.getId(), suffix));
+    }
+
+    public static void indexGroup(CommandSender sender, MischiefGroup group, String one) {
+        if(one == null || !(one.equals("up") || one.equals("down"))) {
+            CommandPermsUtils.sendWU(sender);
+            return;
+        }
+
+        //TODO: Implement index
     }
 }

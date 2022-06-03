@@ -92,6 +92,7 @@ public class CommandPerms implements CommandExecutor {
                 case "remove"   -> CommandPermsGroup.removeGroup(sender, group, one, two);
                 case "prefix"   -> CommandPermsGroup.prefixGroup(sender, group, one);
                 case "suffix"   -> CommandPermsGroup.suffixGroup(sender, group, one);
+                case "index"    -> CommandPermsGroup.indexGroup(sender, group, one);
             }
 
         } else if(args[0].equals("user")) {
