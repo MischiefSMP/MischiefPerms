@@ -110,7 +110,10 @@ public class CommandPermsGroup {
             group.addPermission(permToAdd);
         }
 
-        TextComponent successText = new TextComponent(LangManager.getString(sender, "group-perm-added", permission, group.getId()));
+        String toShow = world != null ?
+                LangManager.getString(sender, "group-perm-added-world", permission, group.getId(), world) :
+                LangManager.getString(sender, "group-perm-added", permission, group.getId());
+        TextComponent successText = new TextComponent(toShow);
         sender.spigot().sendMessage(new ComponentBuilder(successText).append(" ").append(CommandPermsUtils.getGroupInfoTextComponent(sender, group.getId())).create());
     }
 
