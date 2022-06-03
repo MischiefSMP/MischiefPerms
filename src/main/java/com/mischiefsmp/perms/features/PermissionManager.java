@@ -39,6 +39,10 @@ public class PermissionManager {
         }
     }
 
+    public static void deleteGroup(MischiefGroup group) {
+        deleteGroup(group.getId());
+    }
+
     public static void deleteGroup(String id) {
         if(!hasGroup(id))
             return;

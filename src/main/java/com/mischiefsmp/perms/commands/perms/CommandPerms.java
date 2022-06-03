@@ -1,7 +1,9 @@
 package com.mischiefsmp.perms.commands.perms;
 
+import com.mischiefsmp.perms.features.PermissionManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.features.LangManager;
+import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.utils.Utils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -56,28 +58,40 @@ public class CommandPerms implements CommandExecutor {
                 return true;
             }
 
-            // -> /perms group  one  two   three  four
-            // -> /perms group grant <id> <perm> [world]
-            final String one    = CommandPermsUtils.arg(args, 1);
-            final String two    = CommandPermsUtils.arg(args, 2);
-            final String three  = CommandPermsUtils.arg(args, 3);
-            final String four   = CommandPermsUtils.arg(args, 4);
+            // -> /perms group <id>  type   one  two
+            // -> /perms group <id> grant <perm> [world]
+            final String groupID    = CommandPermsUtils.arg(args, 1);
+            final String type    = CommandPermsUtils.arg(args, 2);
+            final String one  = CommandPermsUtils.arg(args, 3);
+            final String two   = CommandPermsUtils.arg(args, 4);
 
-            if(one == null) {
-                CommandPermsUtils.sendWU(sender);
+            if(!PermissionManager.hasGroup(groupID)) {
+                //Group does not exist, but we want to create it
+                if(type != null && type.equals("create")) {
+                    CommandPermsGroup.createGroup(sender, groupID);
+                    return true;
+                }
+                //Group does not exist
+                sender.sendMessage(LangManager.getString(sender, "group-nf", groupID));
+                return true;
+            }
+
+            MischiefGroup group = PermissionManager.getGroup(groupID);
+
+            if(type == null) {
+                // -> /perms group admin
+                CommandPermsGroup.infoGroup(sender, group);
                 return true;
             }
 
             //TODO: Split args properly to allow the usage of ""
-            switch (one) {
-                case "create"   -> CommandPermsGroup.createGroup(sender, two);
-                case "delete"   -> CommandPermsGroup.deleteGroup(sender, two);
-                case "clear"    -> CommandPermsGroup.clearGroup(sender, two);
-                case "add"      -> CommandPermsGroup.addGroup(sender, two, three, four);
-                case "remove"   -> CommandPermsGroup.removeGroup(sender, two, three, four);
-                case "prefix"   -> CommandPermsGroup.prefixGroup(sender, two, three);
-                case "suffix"   -> CommandPermsGroup.suffixGroup(sender, two, three);
-                default         -> CommandPermsGroup.infoGroup(sender, one);
+            switch (type) {
+                case "delete"   -> CommandPermsGroup.deleteGroup(sender, group);
+                case "clear"    -> CommandPermsGroup.clearGroup(sender, group);
+                case "add"      -> CommandPermsGroup.addGroup(sender, group, one, two);
+                case "remove"   -> CommandPermsGroup.removeGroup(sender, group, one, two);
+                case "prefix"   -> CommandPermsGroup.prefixGroup(sender, group, one);
+                case "suffix"   -> CommandPermsGroup.suffixGroup(sender, group, one);
             }
 
         } else if(args[0].equals("user")) {

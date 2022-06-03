@@ -6,10 +6,10 @@ commands:
     help:
       usage: "/perms help"
       permission: "perms.help"
-    list-group:
+    list-groups:
       usage: "/perms list groups"
       permission: "perms.list.groups"
-    list-user:
+    list-users:
       usage: "/perms list users"
       permission: "perms.list.users"
     group:
@@ -17,51 +17,51 @@ commands:
       permission: "perms.group.info"
       exec: "/perms group %s"
     group-create:
-      usage: "/perms group create <id>"
+      usage: "/perms group <id> create "
       permission: "perms.group.create"
-      exec: "/perms group create %s"
+      exec: "/perms group %s create"
     group-delete:
-      usage: "/perms group delete <id>"
+      usage: "/perms group <id> delete"
       permission: "perms.group.delete"
-      exec: "/perms group delete %s"
+      exec: "/perms group %s delete"
     group-clear:
-      usage: "/perms group clear <id>"
+      usage: "/perms group <id> clear"
       permission: "perms.group.clear"
-      exec: "/perms group clear %s"
+      exec: "/perms group %s clear"
     group-add:
-      usage: "/perms group add <id> <permission> [world]"
+      usage: "/perms group <id> add <permission> [world]"
       permission: "perms.group.add"
-      exec: "/perms group add %s %s %s"
-      suggest: "/perms group add %s "
+      exec: "/perms group %s add %s %s"
+      suggest: "/perms group %s add "
     group-remove:
-      usage: "/perms group remove <id> <permission> [world]"
+      usage: "/perms group <id> remove <permission> [world]"
       permission: "perms.group.remove"
-      exec: "/perms group remove %s %s %s"
-      suggest: "/perms group remove %s "
+      exec: "/perms group %s remove %s %s"
+      suggest: "/perms group %s remove "
     group-prefix:
-      usage: "/perms group prefix <id> <prefix>"
+      usage: "/perms group <id> prefix <prefix>"
       permission: "perms.group.prefix"
     group-suffix:
-      usage: "/perms group suffix <id> <suffix>"
+      usage: "/perms group <id> suffix <suffix>"
       permission: "perms.group.suffix"
     group-index:
-      usage: "/perms group index <id> <up|down>"
+      usage: "/perms group <id> index (up|down)"
       permission: "perms.group.index"
     user:
       usage: "/perms user <username>"
       permission: "perms.user.info"
     user-clear:
-      usage: "/perms user clear <username>"
+      usage: "/perms user <username> clear"
       permission: "perms.user.clear"
     user-add:
-      usage: "/perms user add <username> <permission> [world]"
+      usage: "/perms user <username> add <permission> [world]"
       permission: "perms.user.add"
     user-remove:
-      usage: "/perms user remove <username> <permission> [world]"
+      usage: "/perms user <username> remove <permission> [world]"
       permission: "perms.user.remove"
     user-prefix:
-      usage: "/perms user prefix <username> <prefix>"
+      usage: "/perms user <username> prefix <prefix>"
       permission: "perms.user.prefix"
     user-suffix:
-      usage: "/perms user suffix <username> <suffix>"
+      usage: "/perms user <username> suffix <suffix>"
       permission: "perms.user.suffix"
