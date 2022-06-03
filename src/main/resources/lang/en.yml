@@ -16,6 +16,8 @@ messages:
   group-perm-removed: "Removed %s from %s!"
   group-perm-removed-world: "Removed %s from %s for world \"%s\"!"
   group-cleared: "Group %s was reset!"
+  group-prefix-given: "Set %s's prefix to \"%s\""
+  group-suffix-given: "Set %s's suffix to \"%s\""
   click-to-disallow: "Click to disallow"
   click-to-allow: "Click to allow"
   click-to-remove: "Click to remove"

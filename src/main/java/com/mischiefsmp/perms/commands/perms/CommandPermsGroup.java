@@ -122,10 +122,22 @@ public class CommandPermsGroup {
     }
 
     public static void prefixGroup(CommandSender sender, MischiefGroup group, String prefix) {
-        sender.sendMessage(String.format("PREFIX ID: %s PREFIX: %s", group.getId(), prefix));
+        if(prefix == null) {
+            CommandPermsUtils.sendWU(sender);
+            return;
+        }
+
+        group.setPrefix(prefix);
+        sender.sendMessage(LangManager.getString(sender, "group-prefix-given", group.getId(), prefix));
     }
 
     public static void suffixGroup(CommandSender sender, MischiefGroup group, String suffix) {
-        sender.sendMessage(String.format("SUFFIX ID: %s PREFIX: %s", group.getId(), suffix));
+        if(suffix == null) {
+            CommandPermsUtils.sendWU(sender);
+            return;
+        }
+
+        group.setSuffix(suffix);
+        sender.sendMessage(LangManager.getString(sender, "group-suffix-given", group.getId(), suffix));
     }
 }
