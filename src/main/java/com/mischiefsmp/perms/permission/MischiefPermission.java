@@ -19,9 +19,15 @@ public class MischiefPermission {
         }
     }
 
+    public MischiefPermission(String permission, String world) {
+        this(permission);
+        this.world = world;
+    }
+
     public MischiefPermission(MischiefPermission permission) {
         this.parts = permission.parts;
         this.isAllowed = permission.isAllowed;
+        this.world = permission.world;
     }
 
     @Override
@@ -40,14 +46,18 @@ public class MischiefPermission {
         if(!(other instanceof MischiefPermission))
             return false;
 
-        return equals(other, false);
+        return equals(other, false, false);
     }
 
-    public boolean equals(Object other, boolean ignoreAllowed) {
+    public boolean equals(Object other, boolean ignoreAllowed, boolean ignoreWorld) {
         if(!(other instanceof MischiefPermission o))
             return false;
 
         if(!isAllowed == o.isAllowed && !ignoreAllowed)
+            return false;
+
+
+        if(!compareWorlds(world, o.world))
             return false;
 
         if(parts.length == 1 && parts[0].equals(WILDCARD_PART))
@@ -72,6 +82,19 @@ public class MischiefPermission {
         }
 
         return true;
+    }
+
+    private boolean compareWorlds(String w1, String w2) {
+        //Both are null, that works out
+        if(w1 == null && w2 == null)
+            return true;
+
+        //Neither are null, we can check
+        if(w1 != null && w2 != null)
+            return w1.equals(w2);
+
+        //Something else, wont work out
+        return false;
     }
 
     private MischiefPermissionPart arg(MischiefPermissionPart[] ps, int index) {

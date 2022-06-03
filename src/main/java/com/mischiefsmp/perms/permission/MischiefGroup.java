@@ -1,14 +1,12 @@
 package com.mischiefsmp.perms.permission;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.UUID;
 
 public class MischiefGroup {
     private String id;
     private int index = -1;
-    private final HashMap<String, MischiefPermission> permissions = new HashMap<>();
+    private final ArrayList<MischiefPermission> permissions = new ArrayList<>();
     private ArrayList<UUID> members = new ArrayList<>();
     private String prefix;
     private String suffix;
@@ -33,10 +31,9 @@ public class MischiefGroup {
         this.index = index;
     }
 
-    public MischiefPermission getPermission(String permission, boolean ignoreAllowed) {
-        for(String pKey : permissions.keySet()) {
-            MischiefPermission p = permissions.get(pKey);
-            if(p.equals(new MischiefPermission(permission), true)) {
+    public MischiefPermission getPermission(MischiefPermission permission, boolean ignoreAllowed, boolean ignoreWorld) {
+        for(MischiefPermission p : permissions) {
+            if(p.equals(permission, ignoreAllowed, ignoreWorld)) {
                 return p;
             }
         }
@@ -50,25 +47,16 @@ public class MischiefGroup {
         suffix = null;
     }
 
-    public void addPermission(String permission) {
-        addPermission(permission, null);
+    public void addPermission(MischiefPermission permission) {
+        permissions.add(permission);
     }
 
-    public void addPermission(String permission, String world) {
-        MischiefPermission newPermission = new MischiefPermission(permission);
-        newPermission.setWorld(world);
-        permissions.put(newPermission.toString(), newPermission);
-    }
-
-    public void removePermission(String permission) {
-        permissions.remove(new MischiefPermission(permission).toString());
+    public void removePermission(MischiefPermission permission) {
+        permissions.removeIf(toRemove -> toRemove.equals(permission));
     }
 
     public ArrayList<MischiefPermission> getPermissions() {
-        ArrayList<MischiefPermission> list = new ArrayList<>();
-        for(String key : permissions.keySet())
-            list.add(permissions.get(key));
-        return list;
+        return permissions;
     }
 
     public String getPrefix() {

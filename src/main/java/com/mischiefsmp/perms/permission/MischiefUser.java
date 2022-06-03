@@ -7,13 +7,12 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
 
 public class MischiefUser {
     private final UUID uuid;
-    private final HashMap<String, MischiefPermission> permissions = new HashMap<>();
+    private final ArrayList<MischiefPermission> permissions = new ArrayList<>();
     private final ArrayList<String> groups = new ArrayList<>(); //We keep a reference to the group's id, not the class
     private String prefix;
     private String suffix;
@@ -37,13 +36,13 @@ public class MischiefUser {
             MischiefGroup g = PermissionManager.getGroup(groupID);
             if(g != null) {
                 //TODO: Check this in the same shorter way we check it for the user (- checking)
-                MischiefPermission ignoreAllowed = g.getPermission(permission.toString(), true);
+                MischiefPermission ignoreAllowed = g.getPermission(permission, true, false);
                 if(!ignoreAllowed.isAllowed()) {
                     canRun = false;
                     break;
                 }
 
-                MischiefPermission check = g.getPermission(permission.toString(), false);
+                MischiefPermission check = g.getPermission(permission, false, false);
                 if(check != null) {
                     canRun = true;
                     successfulPermission = check;
@@ -55,9 +54,8 @@ public class MischiefUser {
 
         //TODO: Check user permissions first, since they are more important
         //Check user permission
-        for(String pKey : permissions.keySet()) {
-            MischiefPermission p = permissions.get(pKey);
-            if(p.equals(permission, true)) {
+        for(MischiefPermission p : permissions) {
+            if(p.equals(permission, true, false)) {
                 if(!p.isAllowed()) {
                     canRun = false;
                     break;
@@ -91,12 +89,11 @@ public class MischiefUser {
     }
 
     public void addPermission(String permission) {
-        MischiefPermission newPermission = new MischiefPermission(permission);
-        permissions.put(newPermission.toString(), newPermission);
+        permissions.add(new MischiefPermission(permission));
     }
 
-    public void removePermission(String permission) {
-        permissions.remove(new MischiefPermission(permission).toString());
+    public void removePermission(MischiefPermission permission) {
+        permissions.removeIf(toRemove -> toRemove.equals(permission));
     }
 
     public void addGroup(MischiefGroup group) {

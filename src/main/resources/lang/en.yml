@@ -20,6 +20,7 @@ messages:
   click-to-add-perm: "Click to add permission"
   click-to-exec: "Click to execute"
   click-group-info: "Show group info"
+  permission-exists: "Permission already added!"
   cmd-desc:
     perms:
       help: "Shows all usages"

@@ -45,7 +45,7 @@ public class CommandPermsGroup {
             invertText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, hoverText))));
             MischiefPermission invertedPermission = new MischiefPermission(p);
             invertedPermission.setAllowed(!invertedPermission.isAllowed());
-            String invertCMD = String.format(ReadOnly.getCMDExec("perms.group-add"), group.getId(), invertedPermission, "");
+            String invertCMD = String.format(ReadOnly.getCMDExec("perms.group-add"), group.getId(), invertedPermission, invertedPermission.getWorld() != null ? invertedPermission.getWorld() : "");
             invertText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, invertCMD));
 
             TextComponent removeText = new TextComponent("[X]");
@@ -94,17 +94,23 @@ public class CommandPermsGroup {
         if(!CommandPermsUtils.ensureWorldExists(sender, world))
             return;
 
+        MischiefPermission permToAdd = new MischiefPermission(permission, world);
         //Check if we already have this permission already (maybe not allowed?)
-        MischiefPermission perm = group.getPermission(permission, true);
-        if(perm != null) {
-            perm.setAllowed(new MischiefPermission(permission).isAllowed());
-            if(world != null)
-                perm.setWorld(world);
-        } else
-            group.addPermission(permission, world);
+        MischiefPermission existingPerm = group.getPermission(permToAdd, true, false);
+        if(existingPerm != null) {
+            //Permission exists, check if completely equal
+            if(existingPerm.equals(permToAdd)) {
+                sender.sendMessage(LangManager.getString(sender, "permission-exists"));
+                return;
+            }
+            //Permission exists, but possibly disabled/enabled? Switch!
+            existingPerm.setAllowed(new MischiefPermission(permission).isAllowed());
+        } else {
+            //Permission doesnt exist, adding
+            group.addPermission(permToAdd);
+        }
 
         TextComponent successText = new TextComponent(LangManager.getString(sender, "group-perm-added", permission, group.getId()));
-
         sender.spigot().sendMessage(new ComponentBuilder(successText).append(" ").append(CommandPermsUtils.getGroupInfoTextComponent(sender, group.getId())).create());
     }
 
