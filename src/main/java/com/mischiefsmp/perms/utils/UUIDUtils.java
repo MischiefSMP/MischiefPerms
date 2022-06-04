@@ -44,8 +44,10 @@ public class UUIDUtils {
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-            if(response.statusCode() != 200)
+            if(response.statusCode() != 200) {
+                uuidCache.put(username, null);
                 return null;
+            }
 
             JSONObject jsonResponse = new JSONObject(response.body());
             UUID uuid = fixUUID(jsonResponse.getString("id"));
