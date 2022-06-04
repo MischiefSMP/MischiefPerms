@@ -4,6 +4,7 @@ import com.mischiefsmp.perms.features.GroupManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.permission.MischiefGroup;
+import com.mischiefsmp.perms.utils.SendUtils;
 import com.mischiefsmp.perms.utils.Utils;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -18,8 +19,8 @@ public class CommandPerms implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if(args.length <= 0 && CommandPermsUtils.isAllowed(sender, ReadOnly.getCMDPerm("perms.help"))) {
-            sender.sendMessage(LangManager.getString(sender, "missing-arguments"));
-            sender.sendMessage(LangManager.getString(sender, "try-cmd", ReadOnly.getCMDUsage("perms.help")));
+            SendUtils.sendL(sender, "missing-arguments");
+            SendUtils.sendL(sender, "try-cmd", ReadOnly.getCMDUsage("perms.help"));
             return true;
         }
 
@@ -38,7 +39,7 @@ public class CommandPerms implements CommandExecutor {
                 TextComponent usersText = new TextComponent(execUsers);
                 TextComponent usersRunText = Utils.getHoverAndCMDText("[R]", clickExec, execUsers);
 
-                sender.sendMessage(LangManager.getString(sender, "wrong-usage"));
+                SendUtils.sendL(sender, "wrong-usage");
                 sender.spigot().sendMessage(new ComponentBuilder(groupsText).append(" ").append(groupsRunText).create());
                 sender.spigot().sendMessage(new ComponentBuilder(usersText).append(" ").append(usersRunText).create());
                 return true;
@@ -69,7 +70,7 @@ public class CommandPerms implements CommandExecutor {
                     return true;
                 }
                 //Group does not exist
-                sender.sendMessage(LangManager.getString(sender, "group-nf", groupID));
+                SendUtils.sendL(sender, "group-nf", groupID);
                 return true;
             }
 

@@ -3,6 +3,7 @@ package com.mischiefsmp.perms.commands.perms;
 import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.utils.CmdInfo;
+import com.mischiefsmp.perms.utils.SendUtils;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -24,7 +25,7 @@ public class CommandPermsUtils {
             return true;
 
         if(Bukkit.getWorld(world) == null) {
-            sender.sendMessage(LangManager.getString(sender, "world-nf", world));
+            SendUtils.sendL(sender, "world-nf", world);
             return false;
         }
         return true;
@@ -33,19 +34,19 @@ public class CommandPermsUtils {
     public static boolean isAllowed(CommandSender sender, String permission) {
         boolean should = sender.isOp() || sender.hasPermission(permission) || sender.hasPermission("*");
         if(!should)
-            sender.sendMessage(LangManager.getString(sender, "noperm"));
+            SendUtils.sendL(sender, "noperm");
         return should;
     }
 
     public static void sendWU(CommandSender sender) {
-        sender.sendMessage(LangManager.getString(sender, "wrong-usage"));
-        sender.sendMessage(LangManager.getString(sender, "try-cmd", ReadOnly.getCMDUsage("perms.help")));
+        SendUtils.sendL(sender, "wrong-usage");
+        SendUtils.sendL(sender, "try-cmd", ReadOnly.getCMDUsage("perms.help"));
     }
 
     public static void sendHelp(CommandSender sender) {
-        sender.sendMessage(LangManager.getString(sender, "available-cmds"));
+        SendUtils.sendL(sender, "available-cmds");
         for(CmdInfo cmd : ReadOnly.getCMDHelp(sender, "perms")) {
-            sender.sendMessage(String.format("%s: %s", cmd.usage(), cmd.desc()));
+            SendUtils.sendF(sender, "%s: %s", cmd.usage(), cmd.desc());
         }
     }
 

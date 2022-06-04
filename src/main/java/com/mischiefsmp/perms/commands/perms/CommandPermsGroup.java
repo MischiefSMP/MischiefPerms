@@ -6,13 +6,23 @@ import com.mischiefsmp.perms.features.UserManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.permission.MischiefPermission;
+import com.mischiefsmp.perms.utils.SendUtils;
 import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+
 public class CommandPermsGroup {
     public static void listGroups(CommandSender sender) {
-        sender.sendMessage(LangManager.getString(sender, "all-groups"));
+        ArrayList<MischiefGroup> groups = GroupManager.getGroups();
+
+        if(groups.size() == 0) {
+            SendUtils.sendL(sender, "list-groups-none");
+            return;
+        }
+
+        SendUtils.sendL(sender, "all-groups");
         for(MischiefGroup group : GroupManager.getGroups()) {
             //TODO: Account for index
             TextComponent groupText = new TextComponent(group.getId());
@@ -22,11 +32,11 @@ public class CommandPermsGroup {
     }
 
     public static void infoGroup(CommandSender sender, MischiefGroup group) {
-        sender.sendMessage(String.format("Group ID: %s", group.getId()));
-        sender.sendMessage(String.format("Index: %d", group.getIndex()));
-        sender.sendMessage(String.format("Prefix: %s", group.getPrefix() != null ? group.getPrefix() : "None"));
-        sender.sendMessage(String.format("Suffix: %s", group.getSuffix() != null ? group.getSuffix() : "None"));
-        sender.sendMessage(String.format("Users: %s", group.getMembers()));
+        SendUtils.sendF(sender, "Group ID: %s", group.getId());
+        SendUtils.sendF(sender, "Index: %d", group.getIndex());
+        SendUtils.sendF(sender, "Prefix: %s", group.getPrefix() != null ? group.getPrefix() : "None");
+        SendUtils.sendF(sender, "Suffix: %s", group.getSuffix() != null ? group.getSuffix() : "None");
+        SendUtils.sendF(sender, "Users: %s", group.getMembers());
 
         TextComponent permissionsText = new TextComponent("Permissions: ");
         TextComponent addPermText = new TextComponent("[+]");
@@ -65,22 +75,22 @@ public class CommandPermsGroup {
         }
 
         if(GroupManager.hasGroup(groupID)) {
-            sender.sendMessage(LangManager.getString(sender, "group-exists", groupID));
+            SendUtils.sendL(sender, "group-exists", groupID);
             return;
         }
 
         GroupManager.createGroup(groupID);
-        sender.sendMessage(LangManager.getString(sender, "group-created", groupID));
+        SendUtils.sendL(sender, "group-created", groupID);
     }
 
     public static void deleteGroup(CommandSender sender, MischiefGroup group) {
         GroupManager.deleteGroup(group);
-        sender.sendMessage(LangManager.getString(sender, "group-removed", group.getId()));
+        SendUtils.sendL(sender, "group-removed", group.getId());
     }
 
     public static void clearGroup(CommandSender sender, MischiefGroup group) {
         group.clear();
-        sender.sendMessage(LangManager.getString(sender, "group-cleared", group.getId()));
+        SendUtils.sendL(sender, "group-cleared", group.getId());
     }
 
     public static void addGroup(CommandSender sender, MischiefGroup group, String permission, String world) {
@@ -98,7 +108,7 @@ public class CommandPermsGroup {
         if(existingPerm != null) {
             //Permission exists, check if completely equal
             if(existingPerm.equals(permToAdd)) {
-                sender.sendMessage(LangManager.getString(sender, "permission-exists"));
+                SendUtils.sendL(sender, "permission-exists");
                 return;
             }
             //Permission exists, but possibly disabled/enabled? Switch!
@@ -116,7 +126,7 @@ public class CommandPermsGroup {
     }
 
     public static void removeGroup(CommandSender sender, MischiefGroup group, String permission, String world) {
-        sender.sendMessage(String.format("REMOVE ID: %s PERM: %s, WORLD: %s", group.getId(), permission, world));
+        //SendUtils.sendF("REMOVE ID: %s PERM: %s, WORLD: %s", group.getId(), permission, world);
     }
 
     public static void prefixGroup(CommandSender sender, MischiefGroup group, String prefix) {
@@ -126,7 +136,7 @@ public class CommandPermsGroup {
         }
 
         group.setPrefix(prefix);
-        sender.sendMessage(LangManager.getString(sender, "group-prefix-given", group.getId(), prefix));
+        SendUtils.sendL(sender, "group-prefix-given", group.getId(), prefix);
     }
 
     public static void suffixGroup(CommandSender sender, MischiefGroup group, String suffix) {
@@ -136,7 +146,7 @@ public class CommandPermsGroup {
         }
 
         group.setSuffix(suffix);
-        sender.sendMessage(LangManager.getString(sender, "group-suffix-given", group.getId(), suffix));
+        SendUtils.sendL(sender, "group-suffix-given", group.getId(), suffix);
     }
 
     public static void indexGroup(CommandSender sender, MischiefGroup group, String one) {

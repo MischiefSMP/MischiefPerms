@@ -30,10 +30,13 @@ public class LangManager {
         return getString(PluginConfig.getDefaultLanguage(), key, args);
     }
 
+    //TODO: Make sure that we check if the key exists, if not check for the default language and if that doesnt exist when send no key msg
     public static String getString(String language, String key, Object... args) {
         String msg = langMaps.get(language).getString(String.format("messages.%s", key));
         if(args.length > 0 && msg != null)
             msg = String.format(msg, args);
+        if(msg == null)
+            msg = String.format("No String for key <%s>", key);
         return msg;
     }
 }

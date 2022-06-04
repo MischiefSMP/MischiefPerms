@@ -12,6 +12,7 @@ messages:
   group-created: "Group %s created!"
   group-removed: "Group %s removed!"
   group-perm-added: "Added %s to %s!"
+  list-groups-none: "There are no groups!"
   group-perm-added-world: "Added %s to %s for world \"%s\"!"
   group-perm-removed: "Removed %s from %s!"
   group-perm-removed-world: "Removed %s from %s for world \"%s\"!"
