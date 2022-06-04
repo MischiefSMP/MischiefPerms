@@ -59,7 +59,6 @@ public class CommandPermsGroup {
             TextComponent removeText = new TextComponent("[X]");
             removeText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-to-remove"))));
             String removeCMD = String.format(ReadOnly.getCMDExec("perms.group-remove"), group.getId(), p, p.getWorld() != null ? p.getWorld() : "");
-            sender.sendMessage(removeCMD);
             removeText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, removeCMD));
 
             BaseComponent[] components = new ComponentBuilder(permissionText)
