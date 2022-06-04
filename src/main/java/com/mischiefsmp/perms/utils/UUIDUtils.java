@@ -30,8 +30,10 @@ public class UUIDUtils {
 
     public static UUID getUserUUID(String username) {
         Player p = Bukkit.getPlayerExact(username);
-        if(p != null)
+        if(p != null) {
+            uuidCache.put(username, p.getUniqueId());
             return p.getUniqueId();
+        }
 
         if(uuidCache.containsKey(username))
             return uuidCache.get(username);
@@ -41,6 +43,9 @@ public class UUIDUtils {
             HttpRequest request = HttpRequest.newBuilder(url).header("accept", "application/json").build();
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if(response.statusCode() != 200)
+                return null;
 
             JSONObject jsonResponse = new JSONObject(response.body());
             UUID uuid = fixUUID(jsonResponse.getString("id"));
