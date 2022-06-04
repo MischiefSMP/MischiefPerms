@@ -1,21 +1,12 @@
 package com.mischiefsmp.perms.features;
 
-import com.mischiefsmp.perms.MischiefPerms;
 import com.mischiefsmp.perms.permission.MischiefGroup;
-import com.mischiefsmp.perms.permission.MischiefUser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
-public class PermissionManager {
-    private static MischiefPerms plugin;
+public class GroupManager {
     private static final HashMap<String, MischiefGroup> groups = new HashMap<>();
-    private static final HashMap<UUID, MischiefUser> users = new HashMap<>();
-
-    public static void init(MischiefPerms plugin) {
-        PermissionManager.plugin = plugin;
-    }
 
     public static boolean hasGroup(String id) {
         return groups.containsKey(id);
@@ -51,10 +42,5 @@ public class PermissionManager {
 
         //Remove group
         groups.remove(g.getId());
-    }
-
-
-    public static MischiefUser getUser(UUID userUUID) {
-        return users.get(userUUID);
     }
 }

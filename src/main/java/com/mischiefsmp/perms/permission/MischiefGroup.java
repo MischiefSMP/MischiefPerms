@@ -1,6 +1,6 @@
 package com.mischiefsmp.perms.permission;
 
-import com.mischiefsmp.perms.features.PermissionManager;
+import com.mischiefsmp.perms.features.UserManager;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -50,7 +50,7 @@ public class MischiefGroup {
 
         //Remove users from this group
         for(UUID userUUID : members) {
-            MischiefUser user = PermissionManager.getUser(userUUID);
+            MischiefUser user = UserManager.getUser(userUUID);
             if(user != null) {
                 user.removeGroup(id);
             }

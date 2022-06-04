@@ -1,7 +1,7 @@
 package com.mischiefsmp.perms.permission;
 
 import com.mischiefsmp.perms.MischiefPerms;
-import com.mischiefsmp.perms.features.PermissionManager;
+import com.mischiefsmp.perms.features.GroupManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -33,7 +33,7 @@ public class MischiefUser {
         MischiefPermission successfulPermission = null;
         //Check groups
         for(String groupID : groups) {
-            MischiefGroup g = PermissionManager.getGroup(groupID);
+            MischiefGroup g = GroupManager.getGroup(groupID);
             if(g != null) {
                 //TODO: Check this in the same shorter way we check it for the user (- checking)
                 MischiefPermission ignoreAllowed = g.getPermission(permission, true, false);

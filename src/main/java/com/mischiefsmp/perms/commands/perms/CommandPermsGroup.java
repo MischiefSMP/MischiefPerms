@@ -1,7 +1,8 @@
 package com.mischiefsmp.perms.commands.perms;
 
+import com.mischiefsmp.perms.features.GroupManager;
 import com.mischiefsmp.perms.features.LangManager;
-import com.mischiefsmp.perms.features.PermissionManager;
+import com.mischiefsmp.perms.features.UserManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.permission.MischiefPermission;
@@ -12,7 +13,7 @@ import org.bukkit.command.CommandSender;
 public class CommandPermsGroup {
     public static void listGroups(CommandSender sender) {
         sender.sendMessage(LangManager.getString(sender, "all-groups"));
-        for(MischiefGroup group : PermissionManager.getGroups()) {
+        for(MischiefGroup group : GroupManager.getGroups()) {
             //TODO: Account for index
             TextComponent groupText = new TextComponent(group.getId());
             TextComponent infoText = CommandPermsUtils.getGroupInfoTextComponent(sender, group.getId());
@@ -63,17 +64,17 @@ public class CommandPermsGroup {
             return;
         }
 
-        if(PermissionManager.hasGroup(groupID)) {
+        if(GroupManager.hasGroup(groupID)) {
             sender.sendMessage(LangManager.getString(sender, "group-exists", groupID));
             return;
         }
 
-        PermissionManager.createGroup(groupID);
+        GroupManager.createGroup(groupID);
         sender.sendMessage(LangManager.getString(sender, "group-created", groupID));
     }
 
     public static void deleteGroup(CommandSender sender, MischiefGroup group) {
-        PermissionManager.deleteGroup(group);
+        GroupManager.deleteGroup(group);
         sender.sendMessage(LangManager.getString(sender, "group-removed", group.getId()));
     }
 

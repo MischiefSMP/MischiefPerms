@@ -2,7 +2,7 @@ package com.mischiefsmp.perms;
 
 import com.mischiefsmp.perms.commands.perms.CommandPerms;
 import com.mischiefsmp.perms.features.LangManager;
-import com.mischiefsmp.perms.features.PermissionManager;
+import com.mischiefsmp.perms.features.UserManager;
 import com.mischiefsmp.perms.features.PluginConfig;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.utils.FileUtils;
@@ -24,7 +24,6 @@ public class MischiefPerms extends JavaPlugin {
         ReadOnly.init(this);
         PluginConfig.init(this);
         LangManager.init();
-        PermissionManager.init(this);
         registerCommand("perms", new CommandPerms());
     }
 

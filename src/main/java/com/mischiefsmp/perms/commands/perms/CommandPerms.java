@@ -1,6 +1,6 @@
 package com.mischiefsmp.perms.commands.perms;
 
-import com.mischiefsmp.perms.features.PermissionManager;
+import com.mischiefsmp.perms.features.GroupManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.features.LangManager;
 import com.mischiefsmp.perms.permission.MischiefGroup;
@@ -62,7 +62,7 @@ public class CommandPerms implements CommandExecutor {
             final String one  = CommandPermsUtils.arg(args, 3);
             final String two   = CommandPermsUtils.arg(args, 4);
 
-            if(!PermissionManager.hasGroup(groupID)) {
+            if(!GroupManager.hasGroup(groupID)) {
                 //Group does not exist, but we want to create it
                 if(type != null && type.equals("create")) {
                     CommandPermsGroup.createGroup(sender, groupID);
@@ -73,7 +73,7 @@ public class CommandPerms implements CommandExecutor {
                 return true;
             }
 
-            MischiefGroup group = PermissionManager.getGroup(groupID);
+            MischiefGroup group = GroupManager.getGroup(groupID);
 
             if(type == null) {
                 // -> /perms group admin
