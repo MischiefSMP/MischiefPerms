@@ -33,6 +33,10 @@ public class MischiefGroup {
         this.index = index;
     }
 
+    public boolean hasPermission(MischiefPermission permission, boolean ignoreAllowed, boolean ignoreWorld) {
+        return getPermission(permission, ignoreAllowed, ignoreWorld) != null;
+    }
+
     public MischiefPermission getPermission(MischiefPermission permission, boolean ignoreAllowed, boolean ignoreWorld) {
         for(MischiefPermission p : permissions) {
             if(p.equals(permission, ignoreAllowed, ignoreWorld)) {

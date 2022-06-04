@@ -14,6 +14,8 @@ messages:
   group-perm-added: "Added %s to %s!"
   list-groups-none: "There are no groups!"
   group-perm-added-world: "Added %s to %s for world \"%s\"!"
+  group-perm-remove-wrong-allowed: "Permission \"%s\" not found, did you mean to remove \"%s\"?"
+  group-perm-remove-nf: "Permission \"%s\" not found! Try /perms group %s."
   group-perm-removed: "Removed %s from %s!"
   group-perm-removed-world: "Removed %s from %s for world \"%s\"!"
   group-cleared: "Group %s was reset!"

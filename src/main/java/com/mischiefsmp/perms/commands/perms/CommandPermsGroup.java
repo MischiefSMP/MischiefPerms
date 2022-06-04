@@ -58,7 +58,8 @@ public class CommandPermsGroup {
 
             TextComponent removeText = new TextComponent("[X]");
             removeText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(LangManager.getString(sender, "click-to-remove"))));
-            String removeCMD = String.format(ReadOnly.getCMDExec("perms.group-remove"), group.getId(), invertedPermission, "");
+            String removeCMD = String.format(ReadOnly.getCMDExec("perms.group-remove"), group.getId(), p, p.getWorld() != null ? p.getWorld() : "");
+            sender.sendMessage(removeCMD);
             removeText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, removeCMD));
 
             BaseComponent[] components = new ComponentBuilder(permissionText)
@@ -126,7 +127,28 @@ public class CommandPermsGroup {
     }
 
     public static void removeGroup(CommandSender sender, MischiefGroup group, String permission, String world) {
-        //SendUtils.sendF("REMOVE ID: %s PERM: %s, WORLD: %s", group.getId(), permission, world);
+        if(permission == null) {
+            CommandPermsUtils.sendWU(sender);
+            return;
+        }
+
+        MischiefPermission permToRemove = new MischiefPermission(permission, world);
+
+        if(group.hasPermission(permToRemove, false, false)) {
+            //We have the permission to a t, remove it
+            group.removePermission(permToRemove);
+            SendUtils.sendL(sender, "group-perm-removed", permToRemove, group.getId());
+            return;
+        }
+
+        MischiefPermission inverted = group.getPermission(permToRemove, true, false);
+        if(inverted != null) {
+            //We have the permission, but the allowed is wrong
+            SendUtils.sendL(sender, "group-perm-remove-wrong-allowed", permission, inverted);
+            return;
+        }
+
+        SendUtils.sendL(sender, "group-perm-remove-nf", permToRemove, group.getId());
     }
 
     public static void prefixGroup(CommandSender sender, MischiefGroup group, String prefix) {
