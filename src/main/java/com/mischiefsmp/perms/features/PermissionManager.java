@@ -46,18 +46,15 @@ public class PermissionManager {
         if(!hasGroup(id))
             return;
 
-        //Remove users from this group
         MischiefGroup g = groups.get(id);
-        for(UUID member : g.getMembers()) {
-            MischiefUser user = users.get(member);
-            if(user != null) {
-                user.removeGroup(g.getId());
-            }
-        }
+        g.clear();
 
         //Remove group
         groups.remove(g.getId());
     }
 
 
+    public static MischiefUser getUser(UUID userUUID) {
+        return users.get(userUUID);
+    }
 }
