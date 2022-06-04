@@ -3,8 +3,10 @@ package com.mischiefsmp.perms.commands.perms;
 import com.mischiefsmp.perms.features.GroupManager;
 import com.mischiefsmp.perms.features.ReadOnly;
 import com.mischiefsmp.perms.features.LangManager;
+import com.mischiefsmp.perms.features.UserManager;
 import com.mischiefsmp.perms.permission.MischiefGroup;
 import com.mischiefsmp.perms.utils.SendUtils;
+import com.mischiefsmp.perms.utils.UUIDUtils;
 import com.mischiefsmp.perms.utils.Utils;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -13,6 +15,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.UUID;
 
 public class CommandPerms implements CommandExecutor {
 
@@ -94,6 +98,19 @@ public class CommandPerms implements CommandExecutor {
             }
 
         } else if(args[0].equals("user")) {
+            if(args.length < 2) {
+                CommandPermsUtils.sendWU(sender);
+                return true;
+            }
+
+            final String user    = CommandPermsUtils.arg(args, 1);
+            final String type    = CommandPermsUtils.arg(args, 2);
+            final String one  = CommandPermsUtils.arg(args, 3);
+            final String two   = CommandPermsUtils.arg(args, 4);
+
+            UUID uuid = UUIDUtils.getUserUUID(user);
+
+            sender.sendMessage("UUID: " + uuid);
 
         }
 
