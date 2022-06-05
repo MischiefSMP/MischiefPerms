@@ -3,6 +3,7 @@ version: 0.0.1
 author: sven@wollinger.email
 main: com.mischiefsmp.perms.MischiefPerms
 api-version: 1.18
+depend: ["MischiefCore"]
 commands:
   perms:
     description: Set permission related settings
