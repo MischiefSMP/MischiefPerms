@@ -11,7 +11,7 @@ REM java -jar paper.jar -nogui
 REM exit
 
 set serverFolder=<server-dir>
-set projectName=<project name>
+set projectName=MischiefPerms
 set startFile="start.bat"
 
 set pluginFolder=%serverFolder%\plugins
