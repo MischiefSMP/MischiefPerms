@@ -2,22 +2,21 @@
 setlocal enabledelayedexpansion
 cls
 
-REM This make file is not required to build. If you just want the jar just use gradle
-REM I use this for easier setup with my test server
+REM Easy Minecraft make script
+REM https://gist.github.com/SvenWollinger/76d2e0334c2f82bb4f4b8ea2c6b299c4
 
-REM I Recommend this following code as your start.bat in this case
-
+REM Use this in your start.bat:
 REM cd %~dp0
 REM java -jar paper.jar -nogui
 REM exit
 
-set serverFolder=Server Folder here
-set pluginFolder=%serverFolder%\plugins
+set serverFolder=<server-dir>
+set projectName=<project name>
 set startFile="start.bat"
-set projectName=MischiefPerms
+
+set pluginFolder=%serverFolder%\plugins
 
 IF "%~1" == "" goto help
-
 if %1==help goto help
 if %1==clean goto clean
 if %1==build goto build
